@@ -24,6 +24,8 @@ export default class InputHandler {
 
                     if (game.gamestate == GAMESTATE.RESTARTING) {
                         game.gamestate = GAMESTATE.RUNNING;
+                        let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+                        game.ball.speed.x = Math.ceil(Math.random() * game.ball.speed.max_x) * plusOrMinus;
                     }
                     break;
 

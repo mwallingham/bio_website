@@ -57,6 +57,10 @@ export default class Ball {
         if (this.position.y + this.radius > this.game.gameHeight) {
 
             this.game.gamestate = GAMESTATE.RESTARTING;
+            this.game.lives -= 1;
+
+            if (!this.game.diedThisLevel) this.game.diedThisLevel = true;
+            if (this.game.lives == 0) this.game.gamestate = GAMESTATE.FINISHED;
 
         }
 

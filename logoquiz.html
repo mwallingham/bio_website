@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.W. Allingham</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="shortcut icon" href="assets/logo.png">
+</head>
+
+<body>
+
+    <div class="main-container" style="margin-top: 10px;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" style="font-size: 36px; margin: 20px;">M.W. Allingham</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" style="font-size: 24px; margin-left: 24px;">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html" style="font-size: 24px; margin-left: 24px;">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="games.html" style="font-size: 24px; margin-left: 24px;">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html" style="font-size: 24px; margin-left: 24px;">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="startBox w3-teal" id="startBox">
+
+        <div style="padding-bottom: 20px;">
+            <p style="font-size:  24px;">
+                A simple quiz based on the logos of some well-known companies. This was the first project that I undertook using HTML, CSS and JavaScript to get familiar with the basics of web development.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <button id="goButton" class="button" style="font-size: 36px;" onclick="display()">Start</button>
+        </div>
+
+    </div>
+
+    <div id="quiz" class="w3-container w3-teal" style="display: none;">
+
+        <h1 style="margin-bottom: 0.3em; padding-left: 5%;"> Company Logo Quiz</h1>
+
+        <h2 class="message" style="margin-top: 0.4em; margin-bottom: 0.4em;">
+            <strong>Guess the icon!</strong>
+        </h2>
+
+        <img alt="Question Image" class="img" id="questionImage">
+
+        <div class="acontainer">
+            <form>
+                <label id="feedback" for="guess">Enter guess:</label>
+                <input type="text" name="guess" id="guess" class="input">
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="acontainer" style="display: none;">
+        <button type="button" id="button" class="button" onclick="inputEntered()">Submit</button>
+    </div>
+
+
+    <script src="scripts/logoQuiz/logoQuiz.js"></script>
+
+</body>
+
+</html>

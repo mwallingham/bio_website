@@ -124,7 +124,7 @@ class Game {
 
     ended() {
 
-        if ((this.levelstate + 1) > this.levels.length) {
+        if (this.lives != 0) {
 
             document.getElementById("gameCompletedScreen").style.display = "inline-block";
 

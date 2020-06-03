@@ -1,4 +1,8 @@
 import { Game } from './game.mjs'
+import { GAMESTATE } from './game.mjs';
+import { levels } from './levels.mjs'
+
+// launches game - sets up screen
 
 function startGame() {
 
@@ -16,7 +20,9 @@ function startGame() {
 
 }
 
-//main loop
+//setting up main loop
+
+let lastTime = 0;
 
 function gameLoop(timeStamp) {
 
@@ -26,19 +32,43 @@ function gameLoop(timeStamp) {
     game.update(dT);
     game.draw(c);
 
+    let bricksGone = game.totalBricks - (game.gameObjects.length - 2);
+
+    level.textContent = "Level: " + (game.levelstate + 1).toString() + "/" + levels.length.toString();
+    scoreBoard.textContent = "Score: " + bricksGone.toString() + "/" + game.totalBricks.toString();
+    lives.textContent = "Lives: " + game.lives.toString();
+
     requestAnimationFrame(gameLoop);
 
 }
 
-let lastTime = 0;
+//getting main screen context
+
 var canvas = document.getElementById("gameScreen");
+var c = canvas.getContext("2d");
+
+// linking buttons, settings container and sliders
+
 var startButton = document.getElementById("startGame");
 var settings = document.getElementById("settingsContainer");
 var ballSpeed = document.getElementById("ballSpeed");
 var paddleWidth = document.getElementById("paddleWidth");
-var c = canvas.getContext("2d");
+
+//linking outputs
+
+var scoreBoard = document.getElementById("score");
+var level = document.getElementById("level");
+var lives = document.getElementById("lives");
+
+
+// setting up the game based on width and height of canvas provided
+
 const GAME_WIDTH = canvas.width;
 const GAME_HEIGHT = canvas.height;
+
 let game = new Game(GAME_WIDTH, GAME_HEIGHT);
+
+
+//waiting to launch the game
 
 startButton.addEventListener("click", startGame);

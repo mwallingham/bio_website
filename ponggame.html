@@ -38,19 +38,25 @@
         </nav>
     </div>
 
+    <div class="main-container" style="width: 900px; height: 50px; position: relative;">
+        <p id="lives" style="position: absolute; bottom: 0; right: 400px; margin: 0; font-size: 30px;">Lives</p>
+        <p id="level" style="position: absolute; bottom: 0; right: 200px; margin: 0; font-size: 30px;">Level</p>
+        <p id="score" style="position: absolute; bottom: 0; right: 0; margin: 0; font-size: 30px;">Score</p>
+    </div>
+
     <div class="game-container">
         <div class="outer-border">
             <div class="pongGameScreen">
 
-                <div class="slidecontainer" id="settingsContainer" style="width: 400px; height: 400px;">
+                <div class="slidecontainer" id="settingsContainer" style="width: 900px; height: 500px; transform: translateY(50px);">
                     <p>Paddle width:</p>
                     <input type="range" min="1" max="10" value="5" class="slider" id="paddleWidth">
                     <p>Ball speed:</p>
                     <input type="range" min="1" max="10" value="5" class="slider" id="ballSpeed">
-                    <button id="startGame" class="button" style="margin-top: 40px; font-size: 40px;">Start!</button>
+                    <button id="startGame" class="button" style="margin-top: 40px; font-size: 40px; margin-right: auto; margin-left: auto;">Start!</button>
                 </div>
 
-                <div class="slidecontainer" id="pauseSettings" style="width: 400px; height: 400px; display: none;">
+                <div class="slidecontainer" id="pauseSettings" style="width: 900px; height: 500px; display: none; transform: translateY(50px)">
                     <p>Paddle width:</p>
                     <input type="range" min="1" max="10" value="5" class="slider" id="paddleWidthChange">
                     <p>Ball speed:</p>
@@ -58,15 +64,39 @@
                     <p>Press esc key to return to game</p>
                 </div>
 
+
+                <div class="slidecontainer" id="gameOverScreen" style="height: 500px; width: 900px; display: none;">
+
+                    <div style="transform: translateX(300px) translateY(100px); margin-left: auto; margin-right: auto; width: auto; height: auto;">
+
+                        <p>No more lives!</p>
+                        <p>Do you want to restart?</p>
+                        <button id="yes" onclick="window.location.href='ponggame.html';" class="button" style="outline: none; margin-top: 40px; margin-left: 20px; margin-right: 20px; font-size: 40px; display: inline-block;">Yes</button>
+                        <button id="no" onclick="window.location.href='games.html';" class="button" style="outline: none; margin-top: 40px; margin-left: 20px; font-size: 40px; display: inline-block;">No</button>
+
+                    </div>
+
+                </div>
+
+                <div class="slidecontainer" id="gameCompletedScreen" style="height: 500px; width: 900px; display: none;">
+
+                    <div style="transform: translateX(300px) translateY(100px); margin-left: auto; margin-right: auto; width: auto; height: auto;">
+
+                        <p>Congratulations!</p>
+                        <p>Do you want to restart?</p>
+                        <button id="yes" onclick="window.location.href='ponggame.html';" class="button" style="outline: none; margin-top: 40px; margin-left: 20px; margin-right: 20px; font-size: 40px; display: inline-block;">Yes</button>
+                        <button id="no" onclick="window.location.href='games.html';" class="button" style="outline: none; margin-top: 40px; margin-left: 20px; font-size: 40px; display: inline-block;">No</button>
+
+                    </div>
+
+                </div>
+
                 <img id="brick_image" src="scripts/pongClone/assets/brick2.png" alt="image of a brick" style="display: none;">
+
                 <canvas id="gameScreen" width="900" height="500" style="display: none;"></canvas>
                 <script type="module" src="scripts/pongClone/launch.js"></script>
-
             </div>
         </div>
-    </div>
-
-
 
 </body>
 

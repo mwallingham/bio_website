@@ -21,10 +21,13 @@ class Game {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.levelstate = 0;
+        this.lives = 5;
         this.gamestate = GAMESTATE.RESTARTING;
     }
 
     start(paddleWidth, ballSpeed) {
+
+        this.diedThisLevel = false;
 
         this.paddleWidth = paddleWidth;
         this.ballSpeed = ballSpeed;
@@ -35,6 +38,8 @@ class Game {
         let bricks = buildLevel(this, levels[this.levelstate]);
 
         this.gameObjects = [this.ball, this.paddle, ...bricks];
+
+        this.totalBricks = bricks.length;
 
     }
 
@@ -48,6 +53,13 @@ class Game {
 
         if (this.gamestate == GAMESTATE.PAUSED || this.gamestate == GAMESTATE.SETTINGS) return;
 
+        if (this.gamestate == GAMESTATE.FINISHED) {
+
+            this.ended();
+            return;
+
+        }
+
         if (this.gamestate == GAMESTATE.RESTARTING) {
 
             this.restarting(dT);
@@ -55,6 +67,7 @@ class Game {
         }
 
         if (this.gameObjects.length == 2) {
+            if (!this.diedThisLevel) this.lives += 1;
             this.levelstate += 1;
             this.start(this.paddleWidth, this.ballSpeed);
             this.gamestate = GAMESTATE.RESTARTING;
@@ -108,6 +121,24 @@ class Game {
         this.paddle.update(dT);
         this.ball.restarting();
     }
+
+    ended() {
+
+        if ((this.levelstate + 1) > this.levels.length) {
+
+            document.getElementById("gameCompletedScreen").style.display = "inline-block";
+
+        } else {
+
+            document.getElementById("gameOverScreen").style.display = "inline-block";
+
+        }
+
+        document.getElementById("gameScreen").style.display = "none";
+
+
+    }
+
 }
 
 export { GAMESTATE, Game };

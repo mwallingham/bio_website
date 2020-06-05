@@ -8,25 +8,32 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="shortcut icon" href="assets/logo.png">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="main-container" style="margin-top: 10px;">
+    <div class="main-container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" style="font-size: 36px; margin: 20px;">M.W. Allingham</a>
+            <a class="navbar-brand" style="font-size: 36px; margin: 5px;">M.W. Allingham</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.html" style="font-size: 24px; margin-left: 24px;">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="projects.html" style="font-size: 24px; margin-left: 24px;">Projects</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="games.html" style="font-size: 24px; margin-left: 24px;">Games</a>
                     </li>
                     <li class="nav-item">
@@ -37,23 +44,25 @@
         </nav>
     </div>
 
-    <section id="introduction">
-        <div class="main-container" style="margin-top: 30px; margin-bottom: 30px;">
-            <h1 style="font-size: 50px;">Welcome</h1>
-        </div>
+    <div class="main-container" style="display: none;">
+        <p id="other" style="position: absolute; bottom: 0; right: 400px; margin: 0; font-size: 30px;">Lives</p>
+    </div>
+
+    <div class="main-container" style="display: none;">
+        <p id="tan" style="position: absolute; bottom: 50px; right: 400px; margin: 0; font-size: 30px;">Lives</p>
+    </div>
+
+    <div class="main-container" style="display: none;">
+        <p id="angle" style="position: absolute; bottom: 100px; right: 400px; margin: 0; font-size: 30px;">Lives</p>
+    </div>
 
 
-        <div class="main-container">
+    <div class="main-container brown-border" style="width: 1200px; height: 600px; margin-top: 0.5% ;">
+        <canvas id="gameScreen"></canvas>
+    </div>
 
-            <p style="font-size: 24px; color: black; width: 60%; display: inline-block; margin-right: 6%; text-align: justify; vertical-align:top ">
-                My name is Mark Allingham, I am a Masters graduate from the University of Cambridge. I started this site as a project to help me expand my programming knowledge and to introduce me to new programming languages. The purpose of this site now is to act as
-                a portfolio for any technical projects I am working on or have completed as well as any other projects of note, past or present!
-            </p>
+    <script type="module" src="scripts/croquetGame/launch.js"></script>
 
-            <img src="assets/bio_photo.jpg" alt="bio_photo" style="width: 25%; display: inline-block;">
-
-        </div>
-    </section>
 </body>
 
 </html>

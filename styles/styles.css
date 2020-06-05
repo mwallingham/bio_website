@@ -174,3 +174,7 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+
+.brown-border {
+    border: 10px solid #70310f;
+}

@@ -114,8 +114,6 @@ class Game {
                             object.hitThisTurn = false;
                             object.immune = true;
 
-                            alert(activePlayer.playersHit[0].name);
-
                         }
 
                     });

@@ -14,15 +14,7 @@ export default class Velocity {
 
     }
 
-    splitComponents() {
-
-        this.x = this.magnitude() * Math.sin(this.theta);
-        this.y = this.magnitude() * Math.cos(this.theta);
-
-    }
-
     update() {
-
 
         if (this.magnitude() > 0.2) {
 
@@ -39,8 +31,8 @@ export default class Velocity {
 
     rotate(angle) {
 
-        return [this.x * Math.cos(angle) - this.y * Math.sin(angle),
-            this.x * Math.sin(angle) + this.y * Math.cos(angle)
+        return [this.x * Math.cos(angle) - (-this.y) * Math.sin(angle),
+            this.x * Math.sin(angle) + (-this.y) * Math.cos(angle)
         ];
     }
 

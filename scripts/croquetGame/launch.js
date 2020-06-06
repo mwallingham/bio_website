@@ -1,7 +1,6 @@
-import Game from './game.mjs';
+import { Game } from './game.mjs';
 
 //initialise the canvas, set to the size of the screen and draw pitch
-
 var canvas = document.getElementById("gameScreen");
 fitToContainer(canvas);
 
@@ -24,10 +23,15 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 let GAME_WIDTH = canvas.width;
 let GAME_HEIGHT = canvas.height;
-let game = new Game(GAME_WIDTH, GAME_HEIGHT);
+let game = new Game(GAME_WIDTH, GAME_HEIGHT, c);
 game.addPlayer("Mark", "blue");
 game.addPlayer("Tanmay", "red");
-game.addPlayer("David", "green");
+
+game.addGate([200, 200], 0);
+game.addGate([200, 400], 0);
+game.addGate([950, 400], 0);
+game.addGate([950, 200], 0);
+game.addGate([600, 500], 1);
 
 /////////////////////////////////////////
 

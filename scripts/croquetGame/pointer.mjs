@@ -1,29 +1,40 @@
+import { GAMESTATE } from './game.mjs';
+
 export default class Pointer {
 
     constructor(game) {
 
         this.game = game;
-        this.angle = Math.PI;
         this.inner = 15
-        this.outer = 100;
-        this.increment = 2 * Math.PI / 180;
+        this.outer = 500;
         this.power = 0;
         this.timer = 0;
-    }
+        this.innerMag = Math.sqrt(2 * (this.inner ** 2));
+        this.outerMag = 100;
+        this.aimFactor = 0.6;
 
-    moveRight() {
+        this.s_e = {
+            x_start: 0,
+            y_start: 15,
+            px_end: 0,
+            py_end: 0,
+            x_end: 0,
+            y_end: 100,
+        }
 
-        this.angle -= this.increment;
-    }
+        this.unit_v = {
 
-    moveLeft() {
-
-        this.angle += this.increment;
+            x: 0,
+            y: 1
+        }
     }
 
     draw(c, center) {
 
-        let points = this.calculateEnd();
+        this.s_e.px_end = this.unit_v.x * ((this.outerMag - this.innerMag) * this.aimFactor * this.power / 100 + this.innerMag);
+        this.s_e.py_end = this.unit_v.y * ((this.outerMag - this.innerMag) * this.aimFactor * this.power / 100 + this.innerMag);
+
+        let points = this.s_e;
 
         c.beginPath();
         c.moveTo(center.x + points.x_start, center.y + points.y_start);
@@ -38,20 +49,6 @@ export default class Pointer {
         c.strokeStyle = "black";
         c.lineWidth = 2;
         c.stroke();
-
-    }
-
-    calculateEnd() {
-
-        let start_end = {
-            x_start: Math.sin(this.angle) * this.inner,
-            y_start: Math.cos(this.angle) * this.inner,
-            px_end: Math.sin(this.angle) * ((this.outer - this.inner) * this.power / 100 + this.inner),
-            py_end: Math.cos(this.angle) * ((this.outer - this.inner) * this.power / 100 + this.inner),
-            x_end: Math.sin(this.angle) * this.outer,
-            y_end: Math.cos(this.angle) * this.outer
-        }
-        return start_end;
     }
 
     adjustPower() {
@@ -59,15 +56,61 @@ export default class Pointer {
         if ((Math.floor(this.timer / 100)) % 2 === 0) this.power += 2;
         else this.power -= 2;
 
+        document.getElementById("tan").textContent = this.power;
+
         this.timer += 2;
 
     }
 
     sendPower() {
 
-        this.game.playerActive = false;
-        this.game.players[this.game.currentPlayer].velocity.x = 50 * Math.sin(this.angle) * this.power / 100;
-        this.game.players[this.game.currentPlayer].velocity.y = 50 * Math.cos(this.angle) * this.power / 100;
+        this.game.gamestate = GAMESTATE.MOVING;
+        this.game.players[this.game.currentPlayer].velocity.x = 50 * this.unit_v.x * this.power / 100;
+        this.game.players[this.game.currentPlayer].velocity.y = 50 * this.unit_v.y * this.power / 100;
 
     }
+
+    fromMouse(mouse) {
+
+        var screen = document.querySelector("canvas");
+        let rect = screen.getBoundingClientRect();
+
+        let center = this.game.players[this.game.currentPlayer].position;
+
+        let y = (mouse.y - rect.top) - center.y;
+        let x = (mouse.x - rect.left) - center.x;
+
+        this.outerMag = Math.sqrt(x ** 2 + y ** 2);
+
+        this.unit_v.x = x / this.outerMag;
+        this.unit_v.y = y / this.outerMag;
+
+        this.s_e.x_start = this.unit_v.x * this.innerMag;
+        this.s_e.y_start = this.unit_v.y * this.innerMag;
+        this.s_e.x_end = this.unit_v.x * (this.aimFactor * (this.outerMag - this.innerMag) + this.innerMag);
+        this.s_e.y_end = this.unit_v.y * (this.aimFactor * (this.outerMag - this.innerMag) + this.innerMag);
+    }
+
+    reset() {
+
+        this.power = 0;
+        this.timer = 0;
+
+        this.s_e = {
+            x_start: 0,
+            y_start: 15,
+            px_end: 0,
+            py_end: 15,
+            x_end: 0,
+            y_end: 100,
+        }
+
+        this.unit_v = {
+
+            x: 0,
+            y: 1
+        }
+
+    }
+
 }

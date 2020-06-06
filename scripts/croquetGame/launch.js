@@ -27,11 +27,13 @@ let game = new Game(GAME_WIDTH, GAME_HEIGHT, c);
 game.addPlayer("Mark", "blue");
 game.addPlayer("Tanmay", "red");
 
-game.addGate([200, 200], 0);
-game.addGate([200, 400], 0);
-game.addGate([950, 400], 0);
-game.addGate([950, 200], 0);
-game.addGate([600, 500], 1);
+game.addGate([GAME_WIDTH * 0.15, GAME_HEIGHT * 0.25], 1, 2, 1);
+game.addGate([GAME_WIDTH * 0.85, GAME_HEIGHT * 0.25], 1, 2, 2);
+game.addGate([GAME_WIDTH * 0.85, GAME_HEIGHT * 0.75], 1, 3, 3);
+game.addGate([GAME_WIDTH * 0.15, GAME_HEIGHT * 0.75], 1, 3, 4);
+game.addGate([GAME_WIDTH * 0.35, GAME_HEIGHT * 0.5], 1, 2, 5);
+game.addGate([GAME_WIDTH * 0.65, GAME_HEIGHT * 0.5], 1, 3, 6);
+
 
 /////////////////////////////////////////
 

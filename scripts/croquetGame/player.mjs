@@ -9,15 +9,21 @@ export default class Player {
         this.radius = 10;
         this.gameW = game.gameWidth;
         this.gameH = game.gameHeight;
-        this.initiated = false;
         this.mass = 10;
-        this.hitThisTurn = false;
         this.playersHit = [];
+
+        this.initiated = false;
+        this.hitThisTurn = false;
         this.justCroqued = false;
+        this.streak = false;
+        this.immune = false;
+        this.playerToCroquet = "";
+
+        this.gateID = 1;
 
         this.position = {
-            x: game.gameWidth * 0.1,
-            y: game.gameHeight * 0.1,
+            x: game.gameWidth * 0.05,
+            y: game.gameHeight * 0.25,
         }
 
         this.velocity = new Velocity();

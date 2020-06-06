@@ -7,7 +7,7 @@ export default class Gate {
         //facing left right, from left - 2
         //facing left right, from right - 3
 
-        this.gap = 25;
+        this.gap = 23;
         this.colour = '#808080';
         this.facing = facing;
         this.method = method;
@@ -69,7 +69,7 @@ class Post {
 
         }
 
-        this.radius = 5;
+        this.radius = 3;
         this.mass = 1000;
 
     }

@@ -17,9 +17,15 @@ export default class Player {
         this.justCroqued = false;
         this.streak = false;
         this.immune = false;
+        this.hitPost = false;
         this.playerToCroquet = "";
 
         this.gateID = 1;
+
+        this.initial = {
+            x: game.gameWidth * 0.05,
+            y: game.gameHeight * 0.25,
+        }
 
         this.position = {
             x: game.gameWidth * 0.05,
@@ -81,6 +87,22 @@ export default class Player {
 
         this.position.x = center.x + 22 * x / mag;
         this.position.y = center.y + 22 * y / mag;
+
+    }
+
+    reset() {
+
+        this.position.x = this.initial.x;
+        this.position.y = this.initial.y;
+        this.hitPost = false;
+        this.initiated = false;
+        this.gateID = 1;
+        this.hitThisTurn = false;
+        this.justCroqued = false;
+        this.streak = false;
+        this.immune = false;
+        this.playerToCroquet = "";
+        this.playersHit = [];
 
     }
 

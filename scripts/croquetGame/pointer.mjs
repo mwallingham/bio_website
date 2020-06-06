@@ -11,7 +11,7 @@ export default class Pointer {
         this.timer = 0;
         this.innerMag = Math.sqrt(2 * (this.inner ** 2));
         this.outerMag = 100;
-        this.aimFactor = 0.6;
+        this.aimFactor = 0.4;
 
         this.s_e = {
             x_start: 0,
@@ -84,6 +84,8 @@ export default class Pointer {
 
         this.unit_v.x = x / this.outerMag;
         this.unit_v.y = y / this.outerMag;
+
+        if (this.outerMag > 500) this.outerMag = 500;
 
         this.s_e.x_start = this.unit_v.x * this.innerMag;
         this.s_e.y_start = this.unit_v.y * this.innerMag;

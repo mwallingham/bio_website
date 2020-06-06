@@ -1,10 +1,18 @@
 export default class Gate {
 
-    constructor(game, position, facing) {
+    constructor(position, facing, method, id) {
 
-        this.game = game;
-        this.gap = 35;
+        //facing up down, from above - 0
+        //facing up down, from below - 1
+        //facing left right, from left - 2
+        //facing left right, from right - 3
+
+        this.gap = 25;
         this.colour = '#808080';
+        this.facing = facing;
+        this.method = method;
+        this.id = id;
+
 
         switch (facing) {
 
@@ -32,23 +40,21 @@ export default class Gate {
 
     }
 
-    draw(c) {
+    draw(c, colour) {
 
         c.beginPath();
         c.arc(this.post1.position.x, this.post1.position.y, this.post1.radius, 0, 2 * Math.PI);
-        c.fillStyle = this.colour;
+        c.fillStyle = colour;
         c.fill();
         c.stroke();
 
         c.beginPath();
         c.arc(this.post2.position.x, this.post2.position.y, this.post1.radius, 0, 2 * Math.PI);
-        c.fillStyle = this.colour;
+        c.fillStyle = colour;
         c.fill();
         c.stroke();
 
     }
-
-
 
 }
 

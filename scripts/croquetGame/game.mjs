@@ -2,6 +2,7 @@ import Player from './player.mjs';
 import Pointer from './pointer.mjs';
 import InputHandler from './input.mjs';
 import Gate from './gate.mjs';
+import FinishPost from './finishPost.mjs';
 
 const GAMESTATE = {
 
@@ -19,6 +20,7 @@ class Game {
         this.gameHeight = GAME_HEIGHT;
         this.players = [];
         this.pointer = new Pointer(this);
+        this.finshPost = new FinishPost(this);
         this.gamestate = GAMESTATE.STATIC;
         this.lastGamestate = GAMESTATE.STATIC;
         this.playerActive = true;
@@ -38,9 +40,9 @@ class Game {
         this.players.push(new Player(this, name, colour));
     }
 
-    addGate(position, facing) {
+    addGate(position, facing, method, id) {
 
-        this.gates.push(new Gate(this, position, facing));
+        this.gates.push(new Gate(position, facing, method, id));
 
     }
 
@@ -61,13 +63,21 @@ class Game {
             if (object.initiated) object.draw(c);
         });
 
-        this.gates.forEach(object => object.draw(c));
+        this.gates.forEach(object => {
+
+            if (object.id == this.players[this.currentPlayer].gateID) {
+
+                object.draw(c, this.players[this.currentPlayer].colour)
+
+            } else object.draw(c, object.colour);
+
+        });
+
+        this.finshPost.draw(c);
 
     }
 
     update(dT) {
-
-
 
         switch (this.gamestate) {
 
@@ -85,6 +95,7 @@ class Game {
                 this.checkBallCollisions(activePlayer);
 
                 //checking for gate collisions
+
                 this.checkGateCollisions();
 
                 //update all player positions
@@ -97,35 +108,56 @@ class Game {
 
                     this.players.forEach(object => {
 
-                        if (object.hitThisTurn) {
+                        if (object.hitThisTurn && !object.immune) {
 
                             activePlayer.playersHit.push(object);
                             object.hitThisTurn = false;
+                            object.immune = true;
+
+                            alert(activePlayer.playersHit[0].name);
 
                         }
+
                     });
 
                     if (activePlayer.playersHit.length > 0) {
+
+                        alert("case 1: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
                         this.gamestate = GAMESTATE.CROQUET;
                         activePlayer.playerToCroquet = activePlayer.playersHit.shift();
                         activePlayer.justCroqued = true;
-                    } else {
 
+                    } else if (activePlayer.playersHit.length == 0 && activePlayer.justCroqued) {
+
+                        alert("case 2: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
+                        this.gamestate = GAMESTATE.STATIC;
+                        activePlayer.justCroqued = false;
+
+
+                    } else if (activePlayer.streak) {
+
+                        alert("case 3: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
+                        activePlayer.streak = false;
+                        activePlayer.justCroqued = false;
                         this.gamestate = GAMESTATE.STATIC;
 
-                        if (activePlayer.justCroqued) {
+                    } else {
+                        this.players.forEach(object => {
 
-                            activePlayer.justCroqued = false;
-                            break;
+                            object.immune = false;
+                            object.playerToCroquet = "";
 
-                        }
+                        });
 
+                        alert("case 4: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
+                        activePlayer.streak = false;
+                        activePlayer.justCroqued = false;
                         this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+                        this.gamestate = GAMESTATE.STATIC;
                     }
                 }
 
                 break;
-
         }
     }
 
@@ -281,7 +313,6 @@ class Game {
 
                             if (activePlayer == object && activePlayer.playerToCroquet != next) next.hitThisTurn = true;
                             if (activePlayer == next && activePlayer.playerToCroquet != object) object.hitThisTurn = true;
-
                         }
                     }
                 }
@@ -319,12 +350,82 @@ class Game {
                         this.vectorCollisionPost(player, gate.post2);
 
                     }
-                })
-            }
-        })
 
+                    if (player == this.players[this.currentPlayer]) {
+
+                        if (this.throughGate(gate, player) && gate.id == player.gateID) {
+
+                            player.streak = true;
+                            player.gateID += 1;
+                        }
+
+                    }
+                });
+
+                if (player.distanceFrom(this.finshPost) <= (this.finshPost.radius) ** 2 + (player.radius) ** 2) {
+
+                    while (player.distanceFrom(this.finshPost) <= (this.finshPost.radius) ** 2 + (player.radius) ** 2) {
+
+                        player.position.x -= player.velocity.x;
+                        player.position.y -= player.velocity.y;
+                    }
+
+                    this.vectorCollisionPost(player, this.finshPost);
+
+                    player.gateID = 1;
+
+                }
+
+            }
+        });
     }
 
+    throughGate(gate, player) {
+
+        switch (gate.method) {
+
+            case 0:
+                //facing up down, from above
+                if (player.position.x > gate.post1.position.x && player.position.x < gate.post2.position.x &&
+                    player.position.x - player.velocity.x > gate.post1.position.x && player.position.x - player.velocity.x < gate.post2.position.x) {
+
+                    if ((player.position.y > gate.post1.position.y && player.position.y - player.velocity.y < gate.post1.position.y)) return true;
+
+                }
+                break;
+
+                // facing up down, from below
+            case 1:
+
+                if (player.position.x > gate.post1.position.x && player.position.x < gate.post2.position.x &&
+                    player.position.x - player.velocity.x > gate.post1.position.x && player.position.x - player.velocity.x < gate.post2.position.x) {
+
+                    if (player.position.y < gate.post1.position.y && player.position.y - player.velocity.y > gate.post1.position.y) return true;
+
+                }
+                //facing left right, from left
+            case 2:
+
+                if (player.position.y > gate.post1.position.y && player.position.y < gate.post2.position.y &&
+                    player.position.y - player.velocity.y > gate.post1.position.y && player.position.y - player.velocity.y < gate.post2.position.y)
+
+                    if (player.position.x > gate.post1.position.x && player.position.x - player.velocity.x < gate.post1.position.x) return true;
+
+                break;
+
+
+            case 3:
+
+                if (player.position.y > gate.post1.position.y && player.position.y < gate.post2.position.y &&
+                    player.position.y - player.velocity.y > gate.post1.position.y && player.position.y - player.velocity.y < gate.post2.position.y)
+
+                    if (player.position.x < gate.post1.position.x && player.position.x - player.velocity.x > gate.post1.position.x) return true;
+
+                break;
+
+        }
+        return false;
+    }
 }
 
 export { GAMESTATE, Game };

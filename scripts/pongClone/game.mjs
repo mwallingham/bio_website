@@ -69,6 +69,13 @@ class Game {
         if (this.gameObjects.length == 2) {
             if (!this.diedThisLevel) this.lives += 1;
             this.levelstate += 1;
+            if (this.levelstate == levels.length - 1) {
+
+                this.gamestate = GAMESTATE.FINISHED;
+                this.ended();
+                return;
+            }
+
             this.start(this.paddleWidth, this.ballSpeed);
             this.gamestate = GAMESTATE.RESTARTING;
         }

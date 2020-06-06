@@ -2,6 +2,7 @@ import { Game } from './game.mjs';
 
 //initialise the canvas, set to the size of the screen and draw pitch
 var canvas = document.getElementById("gameScreen");
+canvas.style.cursor = "none";
 fitToContainer(canvas);
 
 function fitToContainer(canvas) {

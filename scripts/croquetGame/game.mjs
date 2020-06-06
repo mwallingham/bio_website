@@ -92,6 +92,7 @@ class Game {
                 let activePlayer = this.players[this.currentPlayer];
 
                 //checking for ball collisions
+
                 this.checkBallCollisions(activePlayer);
 
                 //checking for gate collisions
@@ -99,6 +100,7 @@ class Game {
                 this.checkGateCollisions();
 
                 //update all player positions
+
                 this.players.forEach(object => object.update(dT));
 
                 //checking for all static
@@ -116,7 +118,37 @@ class Game {
 
                         }
 
+                        if (object.hitPost && object != activePlayer) {
+
+                            object.reset();
+
+                            if (activePlayer.playersHit.length > 0) {
+
+                                if (object === activePlayer.playersHit[0]) {
+
+                                    activePlayer.playersHit.shift();
+
+                                }
+                            }
+                        }
                     });
+
+                    if (activePlayer.hitPost) {
+
+                        activePlayer.reset();
+                        this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+                        this.gamestate = GAMESTATE.STATIC;
+
+                        this.players.forEach(object => {
+
+                            object.immune = false;
+                            object.playerToCroquet = "";
+
+                        });
+
+                        break;
+
+                    }
 
                     if (activePlayer.playersHit.length > 0) {
 
@@ -137,6 +169,7 @@ class Game {
                         this.gamestate = GAMESTATE.STATIC;
 
                     } else {
+
                         this.players.forEach(object => {
 
                             object.immune = false;
@@ -148,6 +181,7 @@ class Game {
                         activePlayer.justCroqued = false;
                         this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
                         this.gamestate = GAMESTATE.STATIC;
+
                     }
                 }
 
@@ -366,7 +400,8 @@ class Game {
 
                     this.vectorCollisionPost(player, this.finshPost);
 
-                    player.gateID = 1;
+                    if (player.gateID > this.gates.length) alert(player.name + " has won! Congratulations!!");
+                    else player.hitPost = true;
 
                 }
 

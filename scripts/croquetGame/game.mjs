@@ -122,21 +122,18 @@ class Game {
 
                     if (activePlayer.playersHit.length > 0) {
 
-                        alert("case 1: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
                         this.gamestate = GAMESTATE.CROQUET;
                         activePlayer.playerToCroquet = activePlayer.playersHit.shift();
                         activePlayer.justCroqued = true;
 
                     } else if (activePlayer.playersHit.length == 0 && activePlayer.justCroqued) {
 
-                        alert("case 2: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
                         this.gamestate = GAMESTATE.STATIC;
                         activePlayer.justCroqued = false;
 
 
                     } else if (activePlayer.streak) {
 
-                        alert("case 3: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
                         activePlayer.streak = false;
                         activePlayer.justCroqued = false;
                         this.gamestate = GAMESTATE.STATIC;
@@ -149,7 +146,6 @@ class Game {
 
                         });
 
-                        alert("case 4: Streak: " + activePlayer.streak + " JustCroqued: " + activePlayer.justCroqued);
                         activePlayer.streak = false;
                         activePlayer.justCroqued = false;
                         this.currentPlayer = (this.currentPlayer + 1) % this.players.length;

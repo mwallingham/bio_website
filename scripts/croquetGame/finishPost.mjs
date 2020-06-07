@@ -14,7 +14,6 @@ export default class FinishPost {
         this.radius = 5;
     }
 
-
     draw(c) {
 
         c.beginPath();

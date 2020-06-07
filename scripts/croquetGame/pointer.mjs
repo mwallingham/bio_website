@@ -65,8 +65,8 @@ export default class Pointer {
     sendPower() {
 
         this.game.gamestate = GAMESTATE.MOVING;
-        this.game.players[this.game.currentPlayer].velocity.x = 50 * this.unit_v.x * this.power / 100;
-        this.game.players[this.game.currentPlayer].velocity.y = 50 * this.unit_v.y * this.power / 100;
+        this.game.players[this.game.currentPlayer].velocity.x = 30 * this.unit_v.x * this.power / 100;
+        this.game.players[this.game.currentPlayer].velocity.y = 30 * this.unit_v.y * this.power / 100;
 
     }
 
@@ -114,5 +114,4 @@ export default class Pointer {
         }
 
     }
-
 }

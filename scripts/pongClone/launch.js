@@ -1,5 +1,4 @@
 import { Game } from './game.mjs'
-import { GAMESTATE } from './game.mjs';
 import { levels } from './levels.mjs'
 
 // launches game - sets up screen

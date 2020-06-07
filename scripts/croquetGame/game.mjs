@@ -38,6 +38,7 @@ class Game {
     addPlayer(name, colour) {
 
         this.players.push(new Player(this, name, colour));
+
     }
 
     addGate(position, facing, method, id) {
@@ -93,7 +94,7 @@ class Game {
 
                 //checking for ball collisions
 
-                this.checkBallCollisions(activePlayer);
+                if (this.players.length > 1) this.checkBallCollisions(activePlayer);
 
                 //checking for gate collisions
 
@@ -110,13 +111,7 @@ class Game {
 
                     this.players.forEach(object => {
 
-                        if (object.hitThisTurn && !object.immune) {
-
-                            activePlayer.playersHit.push(object);
-                            object.hitThisTurn = false;
-                            object.immune = true;
-
-                        }
+                        object.hitThisTurn = false;
 
                         if (object.hitPost && object != activePlayer) {
 
@@ -138,16 +133,7 @@ class Game {
                         activePlayer.reset();
                         this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
                         this.gamestate = GAMESTATE.STATIC;
-
-                        this.players.forEach(object => {
-
-                            object.immune = false;
-                            object.playerToCroquet = "";
-
-                        });
-
                         break;
-
                     }
 
                     if (activePlayer.playersHit.length > 0) {
@@ -169,13 +155,6 @@ class Game {
                         this.gamestate = GAMESTATE.STATIC;
 
                     } else {
-
-                        this.players.forEach(object => {
-
-                            object.immune = false;
-                            object.playerToCroquet = "";
-
-                        });
 
                         activePlayer.streak = false;
                         activePlayer.justCroqued = false;
@@ -321,9 +300,9 @@ class Game {
 
             if (object.initiated) {
 
-                for (let i = 0; i < (this.players.length - 1); i++) {
+                for (let i = playerIndex + 1; i < this.players.length; i++) {
 
-                    let next = this.players[(playerIndex + 1 + i) % this.players.length];
+                    let next = this.players[i];
 
                     if (next.initiated) {
 
@@ -339,8 +318,17 @@ class Game {
 
                             this.vectorCollision(object, next);
 
-                            if (activePlayer == object && activePlayer.playerToCroquet != next) next.hitThisTurn = true;
-                            if (activePlayer == next && activePlayer.playerToCroquet != object) object.hitThisTurn = true;
+                            if (activePlayer == object && activePlayer.canRoquet[next.name] && activePlayer.playersHit.length < 1) {
+                                next.hitThisTurn = true;
+                                activePlayer.canRoquet[next.name] = false;
+                                activePlayer.playersHit.push(next);
+                            }
+
+                            if (activePlayer == next && activePlayer.canRoquet[object.name] && activePlayer.playersHit.length < 1) {
+                                object.hitThisTurn = true;
+                                activePlayer.canRoquet[object.name] = false;
+                                activePlayer.playersHit.push(object);
+                            }
                         }
                     }
                 }
@@ -385,6 +373,11 @@ class Game {
 
                             player.streak = true;
                             player.gateID += 1;
+                            for (var otherPlayer in player.canRoquet) {
+
+                                player.canRoquet[otherPlayer] = true;
+
+                            }
                         }
 
                     }
@@ -455,6 +448,7 @@ class Game {
         }
         return false;
     }
+
 }
 
 export { GAMESTATE, Game };

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="shortcut icon" href="assets/logo.png">
+    <script src="scripts/jquery-3.5.1.js"></script>
+    <script src="scripts/croquetGame/settings.js"></script>
     <style>
         html,
         body {
@@ -56,9 +58,81 @@
         <p id="angle" style="position: absolute; bottom: 100px; right: 400px; margin: 0; font-size: 30px;">Lives</p>
     </div>
 
+    <div class="main-container brown-border" id="startScreen" style="width: 1200px; height: 600px; margin-top: 0.5%; background-color: #297d0a;">
 
-    <div class="main-container brown-border" style="width: 1200px; height: 600px; margin-top: 0.5%;">
-        <canvas id="gameScreen"></canvas>
+        <div class="croquet-start" id="startBox" style="position: absolute; left: 30%; top:25%; text-align: center; background-color: beige; padding-bottom: 3%;">
+
+            <h1 style="padding-top: 5%; padding-bottom: 3%;">Mini Croquet!</h1>
+            <p style="font-size: 20px">Add players:</p>
+
+            <div class="options">
+                <form>
+
+                    <label>Player 1:</label>
+                    <input type="text" id="player1Name" name="player1Name" style="width: 40%; margin-right: 2%;" placeholder="Name">
+
+                    <label>Colour</label>
+                    <select id="colour1">
+                        <option value="nothing"></option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Pink">Pink</option>
+                    </select>
+                </form>
+
+                <form>
+
+                    <label>Player 2:</label>
+                    <input type="text " id="player2Name" name="player2Name" style="width: 40%; margin-right: 2%;" placeholder="Name">
+
+                    <label>Colour</label>
+                    <select id="colour2">
+                        <option value="nothing"></option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Pink">Pink</option>
+                    </select>
+                </form>
+
+                <form>
+
+                    <label>Player 3:</label>
+                    <input type="text" id="player3Name" style="width: 40%; margin-right: 2%; " placeholder="Name">
+
+                    <label>Colour</label>
+                    <select id="colour3">
+                        <option value="nothing"></option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Pink">Pink</option>
+                    </select>
+                </form>
+
+                <form>
+
+                    <label>Player 4:</label>
+                    <input type="text " id="player4Name" style="width: 40%; margin-right: 2%;" placeholder="Name">
+
+                    <label>Colour</label>
+                    <select id="colour4">
+                        <option value="nothing"></option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Pink">Pink</option>
+                    </select>
+                </form>
+            </div>
+
+            <button class="button" id="playButton" style="margin-left: auto; margin-right: auto; outline: none;">Play</button>
+
+        </div>
+
+        <canvas id="canvas"></canvas>
+
     </div>
 
     <script type="module" src="scripts/croquetGame/launch.js"></script>

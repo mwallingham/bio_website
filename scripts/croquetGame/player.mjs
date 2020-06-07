@@ -33,6 +33,9 @@ export default class Player {
         }
 
         this.velocity = new Velocity();
+
+        this.canRoquet = {};
+
     }
 
     draw(c) {

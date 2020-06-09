@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="main-container" style="margin-top: 10px;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" style="font-size: 36px; margin: 20px;">M.W. Allingham</a>
@@ -35,53 +36,186 @@
                 </ul>
             </div>
         </nav>
-    </div>
 
-    <div class="main-container" style="margin-top: 10px; font-size: 20px;">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Name:</th>
-                    <th scope="col">Written in:</th>
-                    <th scope="col">Created:</th>
-                    <th scope="col">Status:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"><a href="logoquiz.html">Logo Quiz</a></th>
-                    <td>JavaScript</td>
-                    <td>May 2020</td>
-                    <td>In development</td>
+        <div class="jumbotron" style="padding: 10px; margin-top: 10px;">
+            <div style="width: 90%; margin-left: auto; margin-right: auto;">
 
-                </tr>
-                <tr>
-                    <th scope="row"> <a href="breakoutclone.html">Breakout Clone</a></th>
-                    <td>JavaScript</td>
-                    <td>June 2020</td>
-                    <td>Finished</td>
+                <h1 class="display-3" style="font-weight: 350;"><a id="games">Games</a></h1>
 
-                </tr>
-                <tr>
-                    <th scope="row"> <a href="croquet.html">Mini Croquet</a></th>
-                    <td>JavaScript</td>
-                    <td>June 2020</td>
-                    <td>In development</td>
+                <hr class="my-4">
 
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <section id="logoQuiz">
-
-        <div class="main-container">
+                <p class="lead">Contained here are all of the games I have built or that I'm working on. I started developing games as a fun way to build on my existing programming knowledge and to improve my proficiency in JavaScript and with the handling and organisation
+                    of larger-scale projects. Feel free to have a browse and try out some of them!
+                </p>
+                <p class="lead">Unfortunately, due to the restrictions of this site's hosting, I am unable to run any server-side applications. Alas, all of these games have been written using JavaScript. However I am currently working on setting up a static-server for
+                    the site so that some of these games can support more than just locally-based multiplayer.</p>
 
 
+
+                <div style="margin-top: 20px; font-size: 20px; padding: 5px; margin-left: auto; margin-right: auto;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col ">Name:</th>
+                                <th scope="col ">Written using:</th>
+                                <th scope="col ">Created:</th>
+                                <th scope="col ">Status:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <th scope="row "> <a style="font-weight:400; " href='#breakoutclone'>Breakout Clone</a></th>
+                                <td>JavaScript</td>
+                                <td>June 2020</td>
+                                <td>Finished</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row "> <a style="font-weight:400; " href="#minicroquet">Mini Croquet</a></th>
+                                <td>JavaScript/jQuery</td>
+                                <td>June 2020</td>
+                                <td>Finished</td>
+                            </tr>
+                            <tr>
+                                <th scope="row "> <a style="font-weight:400; " href="#pool">Pool</a></th>
+                                <td>JavaScript</td>
+                                <td>June 2020</td>
+                                <td>In development</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-    </section>
+        <section>
+            <div class="jumbotron " style="padding: 10px;">
+                <div style="width: 90%; margin-left: auto; margin-right: auto; ">
+                    <h2 class="display-4 " style="font-weight: 300; "><a id="breakoutclone">Breakout Clone</a></h2>
 
+
+                    <div style="display: flex; ">
+                        <div style="display: inline-block; width: 80%; ">
+                            <p style="font-size: 24px; color: black; text-align: justify; ">
+                                A replica of Atari's 1976 classic 'Breakout'
+                            </p>
+                            <p style="font-size: 20px; color: black; text-align: justify; ">
+                                Creating this game was my introductory exercise using JavaScript and HTML Canvas. Set the paddle width and ball speed to adjust the game's difficulty. Gain a life by passing a level without dying!
+                                <br>Controls:
+                            </p>
+                            <ul style="font-size: 18px; color: black; ">
+
+                                <li>Left & right arrow keys - adjust paddle position</li>
+                                <li>Esc - pause game</li>
+                                <li>'s' - display settings</li>
+
+                            </ul>
+
+                            </p>
+                            <div>
+                                <div style="position: relative; text-align: center;">
+
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='breakoutclone.html'">Play</button>
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='#games'">Back to top</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <img src="assets/games/breakoutclone2.jpg " alt="Image showing a screenshot of Breakout Clone play. " style="width: 100%; overflow:hidden; padding-left: 5%; padding-right: 10px; height: auto;">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4 ">
+
+        </section>
+
+        <section>
+            <div class="jumbotron " style="padding: 10px; margin-top: 5px; ">
+                <div style="width: 90%; margin-left: auto; margin-right: auto; ">
+                    <h2 class="display-4 " style="font-weight: 300; text-align: right; "><a id="minicroquet">Mini Croquet</a></h2>
+
+                    <div style="display: flex; ">
+
+                        <img src="assets/games/minicroquet2.jpg " alt="Image showing a screenshot of Mini Croquet play. " style="width: 100%; overflow:hidden; padding-right: 5%; height: auto;">
+
+                        <div style="display: block; width: 80%; ">
+                            <p style="font-size: 24px; color: black; text-align: right; ">
+                                Arcade version of the popular British lawn sport
+                            </p>
+                            <p style="font-size: 20px; color: black; text-align: justify; ">
+                                A considerable step up from the breakout clone, building this game involved more complicated gaming logic and physics. Navigate the course by hitting the ball through the correct gate and finsh by striking the post in the center!
+                                <br> Controls: </p>
+                            <ul style="font-size: 18px; color: black; ">
+
+                                <li>Cursor - control direction of play and roqueting position</li>
+                                <li>Spacebar - use to adjust the power</li>
+
+                            </ul>
+
+                            </p>
+
+                            <div>
+                                <div style="position: relative; text-align: center;">
+
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='croquet.html'">Play</button>
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='#games'">Back to top</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4 ">
+
+        </section>
+
+
+        <section>
+            <div class="jumbotron " style="padding: 10px; margin-top: 5px; ">
+                <div style="width: 90%; margin-left: auto; margin-right: auto; ">
+                    <h2 class="display-4 " style="font-weight: 300; "><a id="pool">Pool</a></h2>
+                    <div style="display: flex; ">
+                        <div style="display: inline-block; width: 80%; ">
+                            <p style="font-size: 24px; color: black; text-align: justify; ">
+                                Miniature version of a personal favourite
+                            </p>
+                            <p style="font-size: 20px; color: black; text-align: justify; ">
+                                Building on some of the functionality developed in 'Mini Croquet', I decided to create a miniature pool game. This game is very much in its infancy. It requires a more sophisticated method of solving momentum problems to deal with the increased number
+                                of balls. I would like to develop the game such that multiple varieties of the sport can be played and with an added 'speed mode'.
+                                <br> Controls:
+                            </p>
+                            <ul style="font-size: 18px; color: black; ">
+
+                                <li>Cursor - control direction of play</li>
+                                <li>Spacebar - use to adjust the power</li>
+
+                            </ul>
+
+                            </p>
+                            <div>
+                                <div style="position: relative; text-align: center;">
+
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='pool.html'">Play</button>
+                                    <button class="button " style="outline: none; display: inline; margin: 5px;" onclick="window.location.href='#games'">Back to top</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="position: relative; ">
+                            <img src="assets/games/pool.JPG " alt="Image showing a screenshot of Pool play. " style="width: 100%; overflow:hidden; padding-left: 5%; padding-right: 0px; height: auto; ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 
 </html>

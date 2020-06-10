@@ -1,4 +1,5 @@
-import Velocity from "./velocity.mjs"
+import Velocity from "./velocity.mjs";
+import { pocketStats } from "./pockets.mjs";
 
 export default class Ball {
 
@@ -28,7 +29,6 @@ export default class Ball {
         this.velocity = new Velocity();
 
         this.offsetForBreak = 1.;
-
     }
 
     update(dT) {
@@ -40,22 +40,24 @@ export default class Ball {
 
         this.velocity.update();
 
-        if (this.position.x < this.gameW / 2 - this.pocketW || this.position.x > this.gameW / 2 + this.pocketW) {
+        if ((this.position.x < this.gameW / 2 - pocketStats.pocketW && this.position.x > this.border + 20) || (this.position.x > this.gameW / 2 + pocketStats.pocketW && this.position.x < this.gameW - (this.border + 20))) {
             if ((this.position.y - this.radius) < this.border) this.velocity.y = -this.velocity.y;
             while ((this.position.y - this.radius) < this.border) this.position.y += this.velocity.y;
 
             if ((this.position.y + this.radius) > this.gameH - this.border) this.velocity.y = -this.velocity.y;
             while ((this.position.y + this.radius) > this.gameH - this.border) this.position.y += this.velocity.y;
-        } else if (this.distanceFrom(this.game.sidePockets[0]) < this.game.pocketW ** 2 || this.distanceFrom(this.game.sidePockets[1]) < this.game.pocketW ** 2) this.potted = true;
 
+        }
 
+        if (this.position.y > (this.border + 20) && this.position.y < this.gameH - (this.border + 20)) {
 
-        if ((this.position.x - this.radius) < this.border) this.velocity.x = -this.velocity.x;
-        while ((this.position.x - this.radius) < this.border) this.position.x += this.velocity.x;
+            if ((this.position.x - this.radius) < this.border) this.velocity.x = -this.velocity.x;
+            while ((this.position.x - this.radius) < this.border) this.position.x += this.velocity.x;
 
-        if ((this.position.x + this.radius) > this.gameW - this.border) this.velocity.x = -this.velocity.x;
-        while ((this.position.x + this.radius) > this.gameW - this.border) this.position.x += this.velocity.x;
+            if ((this.position.x + this.radius) > this.gameW - this.border) this.velocity.x = -this.velocity.x;
+            while ((this.position.x + this.radius) > this.gameW - this.border) this.position.x += this.velocity.x;
 
+        }
     }
 
     draw(c) {
@@ -71,6 +73,12 @@ export default class Ball {
     distanceFrom(other) {
 
         return (other.position.x - this.position.x) ** 2 + (other.position.y - this.position.y) ** 2;
+
+    }
+
+    distanceFromCorner(corner) {
+
+        return (corner.x - this.position.x) ** 2 + (corner.y - this.position.y) ** 2;
 
     }
 }

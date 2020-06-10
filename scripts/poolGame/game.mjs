@@ -1,7 +1,8 @@
 import Ball from "./ball.mjs";
 import Cue from "./cue.mjs";
 import InputHandler from "./input.mjs";
-import { SidePocket } from "./pockets.mjs";
+import { SidePocket, CornerPocket } from "./pockets.mjs";
+import { pocketStats } from "./pockets.mjs";
 
 const GAMESTATE = {
 
@@ -18,7 +19,7 @@ class Game {
         this.border = border;
         this.pocketW = pocketW;
         this.balls = [];
-        this.sidePockets = [];
+        this.pockets = [];
         this.cueBall = new Ball(this, width * .2, height / 2, 'white');
 
         this.balls.push(this.cueBall);
@@ -27,7 +28,6 @@ class Game {
         this.ballR = this.cueBall.radius;
         this.gamestate = GAMESTATE.STATIC;
         this.breaking = true;
-
     }
 
     listen() {
@@ -102,7 +102,7 @@ class Game {
 
                 if (i % 2 == 1 && j == 0) {
 
-                    this.balls.push(new Ball(this, rackX + (i - 1) * dx, rackY, colour));
+                    this.balls.push(new Ball(this, rackX + (i - 1) * dx, rackY, colour, this));
                     row = 1;
                     offset = 0;
                     continue;
@@ -128,11 +128,9 @@ class Game {
                     this.balls.push(new Ball(this, rackX + (i - 1) * dx, rackY + (offset + 2 * this.ballR * row) * upDown, colour));
 
                     console.log(dy);
-
                 }
 
                 count++;
-
             }
         }
 
@@ -142,15 +140,17 @@ class Game {
 
         });
 
-
-        this.sidePockets.push(new SidePocket(this.width / 2, this.pocketW, 1, this));
-        this.sidePockets.push(new SidePocket(this.width / 2, this.height - this.pocketW, 0, this));
+        this.pockets.push(new SidePocket(this.width / 2, this.pocketW, 0));
+        this.pockets.push(new SidePocket(this.width / 2, this.height - this.pocketW, Math.PI));
+        this.pockets.push(new CornerPocket(this.width - this.border, this.border, 0));
+        this.pockets.push(new CornerPocket(this.width - this.border, this.height - this.border, Math.PI / 2));
+        this.pockets.push(new CornerPocket(this.border, this.height - this.border, Math.PI));
+        this.pockets.push(new CornerPocket(this.border, this.border, 3 * Math.PI / 2));
     }
 
     draw(c) {
 
-        this.sidePockets.forEach(object => object.draw(c));
-
+        this.pockets.forEach(pocket => pocket.draw(c));
 
         switch (this.gamestate) {
 
@@ -159,7 +159,6 @@ class Game {
                 this.cue.draw(c);
 
         }
-
 
         this.balls.forEach(ball => ball.draw(c));
         this.cueBall.draw(c);
@@ -260,6 +259,48 @@ class Game {
 
     }
 
+    dot(object1, object2) {
+
+        let one = object1[0] * object2[0];
+        let two = object1[1] * object2[1];
+
+        return one + two
+
+    }
+
+    vectorCollisionPocket(ball, corner) {
+
+        let pvx = ball.velocity.x;
+        let ppx = ball.position.x;
+        let pvy = ball.velocity.y;
+        let ppy = ball.position.y;
+        let cornerx = corner.x;
+        let cornery = corner.y;
+
+        let c_c = [
+
+            (cornerx - ppx) / (Math.sqrt((cornery - ppy) ** 2 + (cornerx - ppx) ** 2)),
+            (cornery - ppy) / (Math.sqrt((cornery - ppy) ** 2 + (cornerx - ppx) ** 2))
+
+        ];
+
+        let perp_c_c = [
+
+            (-c_c[1] / c_c[0]) / Math.sqrt((-c_c[1] / c_c[0]) ** 2 + 1),
+            1 / Math.sqrt((-c_c[1] / c_c[0]) ** 2 + 1)
+
+        ];
+
+        let p1vcollision = this.dot(c_c, [pvx, pvy]);
+        let p1vperp = this.dot(perp_c_c, [pvx, pvy]);
+
+        let v12 = -p1vcollision * 0.1;
+
+        ball.velocity.x = v12 * c_c[0] + p1vperp * perp_c_c[0];
+        ball.velocity.y = v12 * c_c[1] + p1vperp * perp_c_c[1];
+
+    }
+
     checkBallCollisions() {
 
         this.balls.forEach((object, ballIndex) => {
@@ -280,8 +321,18 @@ class Game {
 
                     this.vectorCollision(object, next);
                 }
-
             }
+
+            this.pockets.forEach(pocket => {
+
+                if (object.distanceFrom(pocket) < pocketStats.pocketR ** 2 + object.radius ** 2) object.potted = true;
+
+                else if (object.distanceFromCorner(pocket.modelCircleRight) < pocket.modelCirleR ** 2 + object.radius ** 2) this.vectorCollisionPocket(object, pocket.modelCircleRight);
+
+                else if (object.distanceFromCorner(pocket.modelCircleLeft) < pocket.modelCirleR ** 2 + object.radius ** 2) this.vectorCollisionPocket(object, pocket.modelCirleLeft);
+
+
+            })
 
         });
     }

@@ -1,5 +1,5 @@
-import { Game } from './game.mjs'
-import { levels } from './levels.mjs'
+import { Game } from './game.js'
+import { levels } from './levels.js'
 
 // launches game - sets up screen
 

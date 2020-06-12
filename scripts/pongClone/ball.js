@@ -1,5 +1,5 @@
-import { yDetectCollision, xDetectCollision } from './collisionDetection.mjs';
-import { GAMESTATE } from './game.mjs';
+import { yDetectCollision, xDetectCollision } from './collisionDetection.js';
+import { GAMESTATE } from './game.js';
 
 export default class Ball {
 

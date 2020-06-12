@@ -1,4 +1,4 @@
-import { GAMESTATE } from './game.mjs';
+import { GAMESTATE } from './game.js';
 
 export default class InputHandler {
 

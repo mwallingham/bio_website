@@ -1,4 +1,4 @@
-import { yDetectCollision, xDetectCollision } from './collisionDetection.mjs';
+import { yDetectCollision, xDetectCollision } from './collisionDetection.js';
 
 export default class Brick {
 

@@ -119,3 +119,10 @@ export default class Cue {
 
     }
 }
+
+
+let discount = function(hello) {
+
+
+
+}

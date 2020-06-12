@@ -1,7 +1,7 @@
-import Paddle from './paddle.mjs';
-import Ball from './ball.mjs';
-import InputHandler from './input.mjs';
-import { buildLevel, levels } from './levels.mjs';
+import Paddle from './paddle.js';
+import Ball from './ball.js';
+import InputHandler from './input.js';
+import { buildLevel, levels } from './levels.js';
 
 
 const GAMESTATE = {

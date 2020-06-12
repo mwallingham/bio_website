@@ -1,4 +1,4 @@
-import Brick from './brick.mjs';
+import Brick from './brick.js';
 
 function buildLevel(game, level) {
 

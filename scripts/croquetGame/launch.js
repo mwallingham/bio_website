@@ -3,7 +3,6 @@ import { Game } from './game.mjs';
 //initialise the canvas, set to the size of the screen and draw pitch
 var canvas = document.getElementById("canvas");
 var startScreen = document.getElementById("startScreen");
-canvas.style.cursor = "none";
 
 fitToContainer(canvas);
 
@@ -107,6 +106,7 @@ function readPlayers() {
 
 function startGame() {
 
+    canvas.style.cursor = "none";
     startBox.style.display = "none";
     canvas.style.display = "block";
     game.listen();

@@ -52,10 +52,13 @@
     <div class="main-container jumbotron" style="padding: 10px; margin-top: 10px; background-color: white;">
         <div style="width: 90%; margin-left: auto; margin-right: auto;">
 
-            <h1 class="display-3" id="welcomeMessage" style="font-weight: 350;">Welcome</h1>
+            <h1 class="display-5" id="welcomeMessage" style="font-weight: 350;">Procedural Maze Generator & Solver</h1>
 
             <hr class="my-4">
 
+            <p style="font-size: 20px;">
+                Wait for the maze to finish generating, click on a cell somewhere within the maze, watch the solving algorithm navigate the maze and select the fastest route to the target!
+            </p>
 
         </div>
 
@@ -63,10 +66,59 @@
 
     <div class="main-container" style="text-align: center;">
 
+        <div style="display: inline-block; margin-bottom: 10px; font-size: 20px;">
+            <form>
+
+                <label>Cells: X</label>
+                <select style="margin-right: 15px;" id="xlen">
+                    
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30" selected>30</option>
+                </select>
+                <label>Y:</label>
+                <select style="margin-right: 24px;" id="ylen">
+                    
+                    <option value="10">10</option>
+                    <option value="20" selected>20</option>
+                    <option value="30">30</option>
+                    
+                </select>
+
+                <label>Generation: Speed</label>
+                <select style="margin-right: 15px;" id="gSpeed">
+                    <option value="20">20ms</option>
+                    <option value="50" selected>50ms</option>
+                    <option value="100">100ms</option>
+                    <option value="500">500ms</option>
+                    <option value="1000">1000ms</option>
+                </select>
+
+                <label>Bot</label>
+                <select style="margin-right: 24px;" id="bVisible">
+                    <option value="false" selected>Invisible</option>
+                    <option value="true">Visible</option>
+                </select>
+
+                <input style="margin-right: 24px;" type="button" value="Reset" id="resetButton">
+
+                <label>Solving Speed</label>
+                <select style="margin-right: 24px;" id="sSpeed">
+                    <option value="20">20ms</option>
+                    <option value="100">100ms</option>
+                    <option value="300" selected>300ms</option>
+                    <option value="500">500ms</option>
+                    <option value="1000">1000ms</option>
+                </select>
+
+                <input type="button" value="Update" id="updateButton">
+
+            </form>
+        </div>
+
         <div class="maze-container" style="margin-bottom: 30px;">
             <canvas id="maze"></canvas>
         </div>
-
     </div>
 
 

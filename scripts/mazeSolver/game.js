@@ -1,44 +1,96 @@
-import { Maze } from './maze.js';
+import { space, Maze } from './maze.js';
 import Bot from './bot.js';
+import InputHandler from './input.js';
 
-export default class Game {
+const GAMESTATE = {
 
-    constructor(c, xlen, ylen, mazeW, mazeH) {
+    GENERATING: 1,
+    STATIC: 1,
+    SOLVING: 2
+}
 
-        this.maze = new Maze(xlen, ylen, mazeW, mazeH);
-        this.bot = new Bot(this.maze);
+class Game {
 
-        this.c = c;
+    constructor(c, xlen, ylen, mazeW, mazeH, gSpeed, sSpeed, bVisible) {
 
-        this.intitiate();
+        this.ctx = c;
+        this.xlen = xlen;
+        this.ylen = ylen;
+        this.mazeW = mazeW;
+        this.mazeH = mazeH;
+        this.gSpeed = gSpeed;
+        this.sSpeed = sSpeed;
+        this.gamestate = GAMESTATE.GENERATING;
+        (bVisible === "true") ? this.botVisibility = true: this.botVisibility = false;
 
     }
 
-    async intitiate() {
+    initiateObjects() {
 
-        await this.maze.printBorder(this.c);
-        await this.maze.printMaze(this.c);
-        this.bot.draw(this.c);
-        this.bot.move();
-        this.loop();
-
+        this.gamestate = GAMESTATE.GENERATING;
+        this.maze = new Maze(this);
+        this.bot = new Bot(this);
+        this.bot.randomPos();
     }
 
-    async loop() {
+    updateBot() {
+        let botPosition = this.bot.position;
+        this.bot = new Bot(this);
+        this.bot.position = botPosition;
+    }
 
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async generateMaze() {
+
+        this.maze.printBorder(this.ctx);
+
+        while (!this.maze.generated) {
+
+            this.maze.printMaze(this.ctx);
+            this.bot.generate();
+            if (this.botVisibility) this.bot.draw(this.ctx);
+            await this.sleep(this.gSpeed);
         }
 
-        await this.maze.printMaze(this.c);
-        this.bot.draw(this.c);
-        this.bot.move();
+        for (let i = 0; i < Math.round(this.maze.xlen * this.maze.ylen * 0.02); i++) {
 
-        await sleep(100);
+            this.bot.removeWalls();
+            this.maze.printMaze(this.ctx);
+        }
 
-        this.loop();
-
+        this.play();
     }
 
+    play() {
 
+        this.bot.randomPos();
+        this.bot.draw(this.ctx);
+        this.gamestate = GAMESTATE.STATIC;
+        new InputHandler(this);
+    }
+
+    setTarget(position) {
+
+        var screen = document.querySelector("canvas");
+        let rect = screen.getBoundingClientRect();
+        let y = Math.floor((position.y - rect.top) / (space.H + space.wallH));
+        let x = Math.floor((position.x - rect.left) / (space.W + space.wallW));
+
+        if (x > 0 && x < this.maze.xlen && y > 0 && y < this.maze.ylen) {
+
+            this.gamestate = GAMESTATE.SOLVING;
+            this.maze.resetGrid();
+            this.bot.chaseTarget(x, y, this.ctx);
+
+        } else {
+
+            return;
+
+        }
+    }
 }
+
+export { Game, GAMESTATE }

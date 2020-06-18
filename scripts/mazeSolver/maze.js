@@ -9,40 +9,41 @@ var space = {
 
 }
 
-
 class Maze {
 
-    constructor(xlen, ylen, width, height) {
+    constructor(game) {
 
-        this.xlen = xlen;
-        this.ylen = ylen;
-        this.width = width;
-        this.height = height;
-
+        this.xlen = game.xlen;
+        this.ylen = game.ylen;
+        this.width = game.mazeW;
+        this.height = game.mazeH;
+        this.gSpeed = game.gSpeed;
         this.wallFactor = .04;
 
-        this.space = {
-
-            W: (1 - this.wallFactor) * width / xlen,
-            H: (1 - this.wallFactor) * height / ylen,
-            wallW: this.wallFactor * width / (xlen - 1),
-            wallH: this.wallFactor * height / (ylen - 1),
-
-        }
+        this.space = this.setSpacing();
         space = this.space;
 
-        this.grid = this.build(xlen, ylen);
+        this.grid = this.build(game.xlen, game.ylen, game.ctx);
         this.fillEdges();
 
-    }
-
-    generateMaze() {
-
-        this.bot.move();
+        this.generated = false;
 
     }
 
-    build(x, y) {
+    setSpacing() {
+
+        var object = {
+
+            W: (1 - this.wallFactor) * this.width / this.xlen,
+            H: (1 - this.wallFactor) * this.height / this.ylen,
+            wallW: this.wallFactor * this.width / (this.xlen - 1),
+            wallH: this.wallFactor * this.height / (this.ylen - 1),
+        }
+
+        return object;
+    }
+
+    build(x, y, c) {
 
         let build = []
 
@@ -52,7 +53,7 @@ class Maze {
 
             for (let i = 0; i < x; i++) {
 
-                build[j][i] = new Point(i, j);
+                build[j][i] = new Point(i, j, c);
 
             }
         }
@@ -65,23 +66,22 @@ class Maze {
 
             this.grid[0][x] = 1;
             this.grid[this.ylen - 1][x] = 1;
-
         }
 
         for (let y = 0; y < this.ylen; y++) {
 
             this.grid[y][0] = 1;
             this.grid[y][this.xlen - 1] = 1;
-
         }
-
     }
 
-    async printBorder(c) {
+    printBorder(c) {
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+
+        c.fillStyle = '#353b36';
 
         for (let j = 0; j < this.ylen; j++) {
 
@@ -89,14 +89,17 @@ class Maze {
 
                 if (this.grid[j][i] === 1) {
 
-                    c.fillRect(i * (this.space.W + this.space.wallW), j * (this.space.H + this.space.wallH), this.space.W, this.space.H);
-                    await sleep(0);
+                    c.fillRect(
+                        i * (this.space.W + this.space.wallW),
+                        j * (this.space.H + this.space.wallH),
+                        this.space.W,
+                        this.space.H);
                 }
             }
         }
     }
 
-    async printMaze(c) {
+    printMaze(c) {
 
         c.clearRect(space.W, space.H, this.width - 2 * space.W, this.height - 2 * space.H);
 
@@ -109,9 +112,22 @@ class Maze {
                 if (j == this.ylen - 2) this.grid[j][i].S.fill = false;
 
                 this.grid[j][i].draw(c);
-
             }
         }
+    }
+
+    resetGrid() {
+
+        for (let j = 1; j < this.ylen - 1; j++) {
+
+            for (let i = 1; i < this.xlen - 1; i++) {
+
+
+                this.grid[j][i].deadEnd = false;
+                this.grid[j][i].visited = false;
+            }
+        }
+
     }
 }
 

@@ -82,6 +82,16 @@ class Game {
         if (x > 0 && x < this.maze.xlen && y > 0 && y < this.maze.ylen) {
 
             this.gamestate = GAMESTATE.SOLVING;
+
+            let tx = (space.W + space.wallW) * x + (0.5 * space.W);
+            let ty = (space.H + space.wallH) * y + (0.5 * space.H);
+
+            this.ctx.beginPath();
+            this.ctx.arc(tx, ty, this.bot.radius / 2, 0, 2 * Math.PI);
+            this.ctx.fillStyle = "blue";
+            this.ctx.fill();
+            this.ctx.stroke();
+
             this.maze.resetGrid();
             this.bot.chaseTarget(x, y, this.ctx);
 

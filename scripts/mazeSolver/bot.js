@@ -147,6 +147,8 @@ export default class Bot {
         } else {
 
             alert("Already at target!");
+            this.game.gamestate = GAMESTATE.STATIC;
+
         }
     }
 
@@ -156,7 +158,9 @@ export default class Bot {
 
             for (let i = 1; i < this.maze.xlen - 1; i++) {
 
-                if (i === this.position.x && j === this.position.y) continue;
+                if ((i === this.position.x && j === this.position.y) ||
+                    (i === this.target[0] && j === this.target[1])) continue;
+
                 else this.maze.grid[j][i].clearSelf();
             }
         }
@@ -266,10 +270,12 @@ export default class Bot {
             this.position.x = newPosition[0];
             this.position.y = newPosition[1];
 
+            this.maze.grid[this.position.y][this.position.x].clearSelf();
             this.draw(c);
             await this.sleep(this.sSpeed);
         }
 
+        this.draw(c);
         this.game.gamestate = GAMESTATE.STATIC;
     }
 

@@ -2,6 +2,7 @@ import { GAMESTATE, Game } from './game.js'
 
 var canvas = document.getElementById("maze");
 fitToContainer(canvas);
+var c = "";
 
 function fitToContainer(canvas) {
     // Make it visually fill the positioned parent
@@ -12,7 +13,7 @@ function fitToContainer(canvas) {
     canvas.height = canvas.offsetHeight;
 }
 
-var c = canvas.getContext("2d");
+c = canvas.getContext("2d");
 var mazeW = canvas.width;
 var mazeH = canvas.height;
 var xlen = 30;
@@ -39,8 +40,19 @@ function newGame() {
     if (game.gamestate !== GAMESTATE.SOLVING) {
 
         c.clearRect(0, 0, mazeW, mazeH);
-        game.xlen = $("#xlen").children("option:selected").val();
-        game.ylen = $("#ylen").children("option:selected").val();
+
+        var screen = document.getElementById("gameScreen");
+        let newXLEN = $("#xlen").children("option:selected").val();
+        let newYLEN = $("#ylen").children("option:selected").val();
+        screen.style.width = (900 * newXLEN / 30).toString() + "px";
+        screen.style.height = (600 * newYLEN / 20).toString() + "px";
+        fitToContainer(canvas);
+
+        game.mazeW = 900 * newXLEN / 30;
+        game.mazeH = 600 * newYLEN / 20;
+        game.xlen = newXLEN;
+        game.ylen = newYLEN;
+
         game.gSpeed = $("#gSpeed").children("option:selected").val();
         game.sSpeed = $("#sSpeed").children("option:selected").val();
 
@@ -49,6 +61,9 @@ function newGame() {
             game.botVisibility = true;
 
         } else game.botVisibility = false;
+
+
+
 
         game.initiateObjects();
         game.generateMaze();

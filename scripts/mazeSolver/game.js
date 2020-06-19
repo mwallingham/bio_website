@@ -33,8 +33,6 @@ class Game {
         this.gamestate = GAMESTATE.GENERATING;
         this.wallRemovalFactor = wallRemovalFactor;
         (bVisible === "true") ? this.botVisibility = true: this.botVisibility = false;
-
-        console.log(this.wallRemovalFactor);
     }
 
     initiateObjects() {

@@ -142,8 +142,8 @@ export default class Bot {
 
         } else {
 
-            alert("Already at target!");
             this.game.gamestate = GAMESTATE.STATIC;
+            alert("Already at target!");
         }
     }
 

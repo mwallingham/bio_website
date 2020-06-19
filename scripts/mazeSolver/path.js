@@ -189,7 +189,15 @@ export default class Path {
 
     animate(c) {
 
-        if (this.branch && !this.deadEnd) this.checkBranches();
+        if (this.branch) {
+
+            this.branches.forEach(branch => {
+
+                branch.animate(c);
+            })
+
+            if (!this.deadEnd) this.checkBranches();
+        }
 
         (this.deadEnd || this.merged) ? c.fillStyle = "red": c.fillStyle = "green";
 
@@ -204,13 +212,6 @@ export default class Path {
             c.stroke();
         })
 
-        if (this.branch) {
 
-            this.branches.forEach(branch => {
-
-                branch.animate(c);
-
-            })
-        }
     }
 }

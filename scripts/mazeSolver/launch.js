@@ -22,8 +22,8 @@ c.fillStyle = '#212529';
 
 var game = new Game(
     c,
-    $("#xlen").children("option:selected").val(),
-    $("#ylen").children("option:selected").val(),
+    xlen,
+    ylen,
     mazeW,
     mazeH,
     $("#gSpeed").children("option:selected").val(),

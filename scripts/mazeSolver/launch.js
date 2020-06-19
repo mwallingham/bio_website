@@ -5,10 +5,9 @@ fitToContainer(canvas);
 var c = "";
 
 function fitToContainer(canvas) {
-    // Make it visually fill the positioned parent
+
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    // ...then set the internal size to match
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 }
@@ -16,8 +15,8 @@ function fitToContainer(canvas) {
 c = canvas.getContext("2d");
 var mazeW = canvas.width;
 var mazeH = canvas.height;
-var xlen = 30;
-var ylen = 20;
+var xlen = $("#xlen").children("option:selected").val();
+var ylen = $("#ylen").children("option:selected").val();
 c.clearRect(0, 0, mazeW, mazeH);
 c.fillStyle = '#212529';
 
@@ -30,6 +29,7 @@ var game = new Game(
     $("#gSpeed").children("option:selected").val(),
     $("#sSpeed").children("option:selected").val(),
     $("#bVisible").children("option:selected").val(),
+    $("#WRF").children("option:selected").val()
 );
 
 game.initiateObjects();
@@ -44,15 +44,15 @@ function newGame() {
         var screen = document.getElementById("gameScreen");
         let newXLEN = $("#xlen").children("option:selected").val();
         let newYLEN = $("#ylen").children("option:selected").val();
-        screen.style.width = (900 * newXLEN / 30).toString() + "px";
-        screen.style.height = (600 * newYLEN / 20).toString() + "px";
+
+        screen.style.width = (mazeW * newXLEN / xlen).toString() + "px";
+        screen.style.height = (mazeH * newYLEN / ylen).toString() + "px";
         fitToContainer(canvas);
 
-        game.mazeW = 900 * newXLEN / 30;
-        game.mazeH = 600 * newYLEN / 20;
+        game.mazeW = mazeW * newXLEN / xlen;
+        game.mazeH = mazeH * newYLEN / ylen;
         game.xlen = newXLEN;
         game.ylen = newYLEN;
-
         game.gSpeed = $("#gSpeed").children("option:selected").val();
         game.sSpeed = $("#sSpeed").children("option:selected").val();
 
@@ -62,7 +62,7 @@ function newGame() {
 
         } else game.botVisibility = false;
 
-
+        game.wallRemovalFactor = $("#WRF").children("option:selected").val();
 
 
         game.initiateObjects();

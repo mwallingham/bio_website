@@ -18,7 +18,6 @@ export default class Bot {
             "S": 0,
             "E": 1,
             "W": -1
-
         }
         this.DY = {
 
@@ -26,9 +25,7 @@ export default class Bot {
             "S": 1,
             "E": 0,
             "W": 0
-
         }
-
     }
 
     /////// MAZE GENERATION //////
@@ -130,8 +127,7 @@ export default class Bot {
                         ];
 
                         this.foundTarget = true;
-                        this.followRoute(c);
-
+                        this.paths = [];
                     };
 
                     this.paths.push(new Path(
@@ -148,7 +144,6 @@ export default class Bot {
 
             alert("Already at target!");
             this.game.gamestate = GAMESTATE.STATIC;
-
         }
     }
 
@@ -179,6 +174,8 @@ export default class Bot {
 
     async advance(c) {
 
+        this.drawTarget(this.target, c);
+
         this.paths.forEach(path => {
 
             path.animate(c);
@@ -194,10 +191,6 @@ export default class Bot {
                 if (!path.deadEnd &&
                     !path.merged &&
                     !this.foundTarget) path.advance();
-
-                if (path.found) {
-                    this.foundTarget = true;
-                }
             })
 
             this.advance(c);
@@ -211,7 +204,9 @@ export default class Bot {
 
         this.paths.forEach(path => {
 
-            if (path.inRoute(x, y)) result = true;
+            if (path.inRoute(x, y)) {
+                result = true;
+            }
 
         })
 
@@ -245,9 +240,11 @@ export default class Bot {
             }
         }
 
+        this.drawTarget(this.target, c);
+
         c.fillStyle = "green";
 
-        this.route.forEach(point => {
+        this.route.slice(0, -1).forEach(point => {
 
             let x = (space.W + space.wallW) * point[0] + (0.5 * space.W);
             let y = (space.H + space.wallH) * point[1] + (0.5 * space.H);
@@ -366,6 +363,18 @@ export default class Bot {
         c.fill();
         c.stroke();
 
+    }
+
+    drawTarget(position, c) {
+
+        let tx = (space.W + space.wallW) * position[0] + (0.5 * space.W);
+        let ty = (space.H + space.wallH) * position[1] + (0.5 * space.H);
+
+        c.beginPath();
+        c.arc(tx, ty, this.radius / 2, 0, 2 * Math.PI);
+        c.fillStyle = "blue";
+        c.fill();
+        c.stroke();
     }
 
     randomPos() {

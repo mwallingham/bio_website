@@ -49,7 +49,7 @@
         </nav>
     </div>
 
-    <div class="main-container jumbotron" style="padding: 10px; margin-top: 10px; background-color: white;">
+    <div class="main-container jumbotron" style="padding: 10px; margin-top: 30px; background-color: white;">
         <div style="width: 90%; margin-left: auto; margin-right: auto;">
 
             <h1 class="display-5" id="welcomeMessage" style="font-weight: 350;">Procedural Maze Generator & Solver</h1>
@@ -64,61 +64,81 @@
 
     </div>
 
-    <div class="main-container" style="text-align: center;">
+    <div class="main-container" style=" display: flex; text-align: left; width: 70%; margin-bottom: 50px;">
 
-        <div style="display: inline-block; margin-bottom: 10px; font-size: 20px; width: 100%;">
-            <form>
-
-                <label>Cells: X</label>
+        <div style="margin-bottom: 10px; font-size: 20px; width: 30%;">
+            <form style="margin-bottom: 20px;">
+                <label><b>Cells:</b></label>
+                <br>
+                <label>X:</label>
                 <select style="margin-right: 15px;" id="xlen">
                     
                     <option value="10">10</option>
                     <option value="20">20</option>
-                    <option value="30" selected>30</option>
+                    <option value="30"selected>30</option>
                 </select>
                 <label>Y:</label>
                 <select style="margin-right: 24px;" id="ylen">
                     
                     <option value="10">10</option>
-                    <option value="20" selected>20</option>
-                    <option value="30">30</option>
-                    
+                    <option value="20"selected>20</option>
+                    <option value="30">30</option> 
                 </select>
+            </form>
 
-                <label>Generation: Speed</label>
+            <form style="margin-bottom: 40px;">
+                <label><b>Generation:</b></label>
+                <br>
+                <label>Speed:</label>
                 <select style="margin-right: 15px;" id="gSpeed">
+                    <option value="0"selected>min</option>
                     <option value="20">20ms</option>
-                    <option value="50" selected>50ms</option>
                     <option value="100">100ms</option>
                     <option value="500">500ms</option>
                     <option value="1000">1000ms</option>
                 </select>
-
-                <label>Bot</label>
+                <br>
+                <label>Bot:</label>
                 <select style="margin-right: 24px;" id="bVisible">
                     <option value="false" selected>Invisible</option>
                     <option value="true">Visible</option>
                 </select>
-
+                <br>
+                <label>Wall Removal Factor:</label>
+                <select style="margin-right: 24px;" id="WRF">
+                    <option value="0">0</option>
+                    <option value="0.02">0.02</option>
+                    <option value="0.05"selected>0.05</option>
+                    <option value="0.1">0.1</option>
+                    <option value="0.2">0.2</option>
+                    <option value="0.5">0.5</option>
+                </select>
+                <br>
                 <input style="margin-right: 24px;" type="button" value="Reset" id="resetButton">
+            </form>
 
-                <label>Solving Speed</label>
+            <form>
+                <label><b>Solving:</b></label>
+                <br>
+                <label>Speed:</label>
                 <select style="margin-right: 24px;" id="sSpeed">
+                    <option value="0">min</option>
                     <option value="20">20ms</option>
                     <option value="100">100ms</option>
                     <option value="300" selected>300ms</option>
                     <option value="500">500ms</option>
                     <option value="1000">1000ms</option>
                 </select>
-
+                <br>
                 <input type="button" value="Update" id="updateButton">
-
             </form>
         </div>
-        <div class="maze-container" id="gameScreen" style="width: 900px; height: 600px; display: inline-block; text-align: center;">
-            <canvas id="maze"></canvas>
-        </div>
 
+        <div style="width: 60%;">
+            <div class="maze-container" id="gameScreen" style="width: 700px; height: 460px; display: inline-block; text-align: center;">
+                <canvas id="maze"></canvas>
+            </div>
+        </div>
     </div>
 
     <script>

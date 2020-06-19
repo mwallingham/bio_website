@@ -11,7 +11,17 @@ const GAMESTATE = {
 
 class Game {
 
-    constructor(c, xlen, ylen, mazeW, mazeH, gSpeed, sSpeed, bVisible) {
+    constructor(
+        c,
+        xlen,
+        ylen,
+        mazeW,
+        mazeH,
+        gSpeed,
+        sSpeed,
+        bVisible,
+        wallRemovalFactor
+    ) {
 
         this.ctx = c;
         this.xlen = xlen;
@@ -21,8 +31,10 @@ class Game {
         this.gSpeed = gSpeed;
         this.sSpeed = sSpeed;
         this.gamestate = GAMESTATE.GENERATING;
+        this.wallRemovalFactor = wallRemovalFactor;
         (bVisible === "true") ? this.botVisibility = true: this.botVisibility = false;
 
+        console.log(this.wallRemovalFactor);
     }
 
     initiateObjects() {
@@ -55,7 +67,7 @@ class Game {
             await this.sleep(this.gSpeed);
         }
 
-        for (let i = 0; i < Math.round(this.maze.xlen * this.maze.ylen * 0.02); i++) {
+        for (let i = 0; i < Math.round(this.maze.xlen * this.maze.ylen * this.wallRemovalFactor); i++) {
 
             this.bot.removeWalls();
             this.maze.printMaze(this.ctx);
@@ -82,15 +94,6 @@ class Game {
         if (x > 0 && x < this.maze.xlen && y > 0 && y < this.maze.ylen) {
 
             this.gamestate = GAMESTATE.SOLVING;
-
-            let tx = (space.W + space.wallW) * x + (0.5 * space.W);
-            let ty = (space.H + space.wallH) * y + (0.5 * space.H);
-
-            this.ctx.beginPath();
-            this.ctx.arc(tx, ty, this.bot.radius / 2, 0, 2 * Math.PI);
-            this.ctx.fillStyle = "blue";
-            this.ctx.fill();
-            this.ctx.stroke();
 
             this.maze.resetGrid();
             this.bot.chaseTarget(x, y, this.ctx);

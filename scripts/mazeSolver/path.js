@@ -13,6 +13,7 @@ export default class Path {
         this.addToRoute([node[0], node[1]]);
         this.addToRoute(this.current);
 
+        this.radiusReduction = 0.6;
         this.deadEnd = false;
         this.merged = false;
         this.branches = [];
@@ -36,7 +37,6 @@ export default class Path {
                     !this.inRoute(x + this.bot.DX[direction[0]], y + this.bot.DY[direction[0]])) {
 
                     possible.push(direction[0]);
-
                 }
             })
 
@@ -60,7 +60,6 @@ export default class Path {
 
                         }
                     } else {
-                        console.log("found at splinter");
                         this.addToRoute([newX, newY]);
                         this.found = true;
                         this.bot.foundTarget = true;
@@ -94,24 +93,17 @@ export default class Path {
 
             if (!this.found) {
 
-                let deadEndCheck = true;
-
                 this.branches.forEach(branch => {
 
                     if (!branch.deadEnd &&
                         !branch.merged &&
                         !this.bot.foundTarget) branch.advance();
-                    if (!branch.deadEnd) deadEndCheck = false;
                     if (branch.found) this.found = true;
-
                 })
-                await this.bot.sleep(this.bot.sSpeed);
-                this.deadEnd = deadEndCheck;
 
             } else {
 
                 return;
-
             }
         }
     }
@@ -122,7 +114,8 @@ export default class Path {
 
         this.route.forEach(position => {
 
-            if (position[0] == x && position[1] == y) {
+            if (position[0] == x &&
+                position[1] == y) {
 
                 result = true;
             }
@@ -132,8 +125,9 @@ export default class Path {
 
             this.branches.forEach(branch => {
 
-                if (branch.inRoute(x, y)) result = true;
-
+                if (branch.inRoute(x, y)) {
+                    result = true;
+                }
             })
         }
 
@@ -180,9 +174,24 @@ export default class Path {
         return route;
     }
 
+    checkBranches() {
+
+        let check = true;
+
+        this.branches.forEach(branch => {
+
+            if (branch.merged) branch.deadEnd = true;
+            if (!branch.deadEnd) check = false;
+        })
+
+        this.deadEnd = check;
+    }
+
     animate(c) {
 
-        (!this.deadEnd) ? c.fillStyle = "green": c.fillStyle = "red";
+        if (this.branch && !this.deadEnd) this.checkBranches();
+
+        (this.deadEnd || this.merged) ? c.fillStyle = "red": c.fillStyle = "green";
 
         this.route.slice(1).forEach(point => {
 
@@ -190,7 +199,7 @@ export default class Path {
             let y = (space.H + space.wallH) * point[1] + (0.5 * space.H);
 
             c.beginPath();
-            c.arc(x, y, 0.3 * this.bot.radius / 2, 0, 2 * Math.PI);
+            c.arc(x, y, this.radiusReduction * this.bot.radius / 2, 0, 2 * Math.PI);
             c.fill();
             c.stroke();
         })

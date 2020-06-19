@@ -39,12 +39,10 @@ export default class Point {
         if (this.S.fill) this.c.fillRect(this.S.x_start, this.S.y_start, space.W + space.wallW, space.wallH);
 
         if (this.E.fill) this.c.fillRect(this.E.x_start, this.E.y_start, space.wallW, space.H + space.wallH);
-
     }
 
     clearSelf() {
 
         this.c.clearRect(this.clear.x_start, this.clear.y_start, this.clear.width, this.clear.height);
     }
-
 }

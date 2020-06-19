@@ -56,10 +56,14 @@
 
             <hr class="my-4">
 
-            <p style="font-size: 20px;">
-                Wait for the maze to finish generating, click on a cell somewhere within the maze, watch the solving algorithm navigate the maze and select the fastest route to the target!
-            </p>
+            <p style="font-size: 20px; text-align: justify;">Wait for the maze to finish generating, click on a cell somewhere within the maze, watch the solving algorithm navigate the maze and select the fastest route to the target!</p>
 
+            <p style="font-size: 20px; text-align: justify;">
+                The maze generation occurs in two parts. Firstly, an implementation of the recursive backtracking algorithm runs, generating the raw skeleton. Following this, a function I have added runs to randomly select cells and randomly remove walls bordering those
+                cells. This second phase's effectiveness is controlled by the wall removal factor. If set to zero, no additional walls will be removed, resulting in a maze with exactly one possible path between any two cells. The higher this is value,
+                the more open the maze becomes and the greater the number of potential routes between two cells. Play around with the various parameters to explore how the generation and solver works!
+                <br> <b>Note:</b> Altering the solving speed only requires pressing the update button. Any other alteration will require generating a new maze.
+            </p>
         </div>
 
     </div>
@@ -67,6 +71,7 @@
     <div class="main-container" style=" display: flex; text-align: left; width: 70%; margin-bottom: 50px;">
 
         <div style="margin-bottom: 10px; font-size: 20px; width: 30%;">
+
             <form style="margin-bottom: 20px;">
                 <label><b>Cells:</b></label>
                 <br>
@@ -135,7 +140,7 @@
         </div>
 
         <div style="width: 60%;">
-            <div class="maze-container" id="gameScreen" style="width: 700px; height: 460px; display: inline-block; text-align: center;">
+            <div class="maze-container" id="gameScreen" style="width: 750px; height: 500px; display: inline-block; text-align: center;">
                 <canvas id="maze"></canvas>
             </div>
         </div>

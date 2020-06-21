@@ -269,7 +269,7 @@ export default class Bot {
 
             this.maze.grid[this.position.y][this.position.x].clearSelf();
             this.draw(c);
-            await this.sleep(this.sSpeed);
+            await this.sleep(50);
         }
 
         this.draw(c);

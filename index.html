@@ -65,7 +65,7 @@
             </p>
 
             <p style="font-size: 20px; text-align: justify;">
-                <b>Note:</b> Altering the solving settings only requires pressing the update button. Any other alteration will require generating a new maze.
+                <b>Note:</b> Alterations to the solving settings take effect at the first available static frame. Any other alterations will require generating a new maze.
             </p>
 
         </div>
@@ -84,15 +84,15 @@
                     
                     <option value="12">10</option>
                     <option value="22">20</option>
-                    <option value="32"selected>30</option>                 
+                    <option value="32" selected>30</option>
 
                 </select>
                 <label>Y:</label>
                 <select style="margin-right: 24px;" id="ylen">
                     
                     <option value="12">10</option>
-                    <option value="22"selected>20</option>
-                    <option value="32">30</option>                   
+                    <option value="22" selected>20</option>
+                    <option value="32">30</option>
 
                 </select>
             </form>
@@ -107,32 +107,39 @@
             
                 </select>
                 <br>
-                <label>Speed:</label>
-                <select style="margin-right: 15px;" id="gSpeed">
-                    <option value="0"selected>min</option>
-                    <option value="20">20ms</option>
-                    <option value="100">100ms</option>
-                    <option value="500">500ms</option>
-                    <option value="1000">1000ms</option>
-                </select>
-                <br>
-                <label>Bot:</label>
-                <select style="margin-right: 24px;" id="bVisible">
-                    <option value="false" selected>Invisible</option>
-                    <option value="true">Visible</option>
-                </select>
-                <br>
+
+                <div id="optional">
+                    <label>Speed:</label>
+                    <select style="margin-right: 15px;" id="gSpeed">
+                        <option value="0"selected>min</option>
+                        <option value="20">20ms</option>
+                        <option value="100">100ms</option>
+                        <option value="500">500ms</option>
+                        <option value="1000">1000ms</option>
+                    </select>
+                    <br>
+                    <label>Bot:</label>
+                    <select style="margin-right: 24px;" id="bVisible">
+                        <option value="false" selected>Invisible</option>
+                        <option value="true">Visible</option>
+                    </select>
+                    <br>
+                </div>
                 <label>Wall Removal Factor:</label>
-                <select style="margin-right: 24px;" id="WRF">
+                <select style="margin-right: 24px; margin-bottom: 15px;" id="WRF">
                     <option value="0">0</option>
                     <option value="0.02">0.02</option>
                     <option value="0.05"selected>0.05</option>
                     <option value="0.1">0.1</option>
                     <option value="0.2">0.2</option>
                     <option value="0.5">0.5</option>
+                    <option value="0.75">0.75</option>
+                    <option value="0.9">0.9</option>
+                    <option value="1.0">1.0</option>
+
                 </select>
                 <br>
-                <input style="margin-right: 24px;" type="button" value="Reset" id="resetButton">
+                <input style="margin-right: 24px;" type="button" value="Regenerate" id="regenButton">
             </form>
 
             <form>
@@ -155,8 +162,7 @@
                     <option value="6">5 iterations</option>
                     <option value="11">10 iterations</option>
                 </select>
-                <br>
-                <input type="button" value="Update" id="updateButton">
+
             </form>
         </div>
 

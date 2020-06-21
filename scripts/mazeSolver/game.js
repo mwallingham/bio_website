@@ -34,12 +34,9 @@ class Game {
         (bVisible === "true") ? this.botVisibility = true: this.botVisibility = false;
         this.wallRemovalFactor = wallRemovalFactor;
         this.removeDE = removeDE;
-
-        this.gamestate = GAMESTATE.GENERATING;
     }
 
     initiateObjects() {
-
         this.gamestate = GAMESTATE.GENERATING;
         this.maze = new Maze(this);
         this.bot = new Bot(this);

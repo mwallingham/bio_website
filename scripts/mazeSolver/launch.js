@@ -1,10 +1,16 @@
 import { GAMESTATE, Game } from './game.js'
 
+///// GET NECESSARY ELEMENTS FROM HTML ///////
+
 var canvas = document.getElementById("maze");
 var screen = document.getElementById("gameScreen");
 
+screen.style.width = (window.innerWidth * 0.5).toString() + "px";
+screen.style.height = (window.innerHeight * 0.67).toString() + "px";
+
+///// SET CANVAS DIMENSIONS & INITIALISE GAME //////
+
 fitToContainer(canvas);
-var c = "";
 
 function fitToContainer(canvas) {
 
@@ -14,15 +20,11 @@ function fitToContainer(canvas) {
     canvas.height = canvas.offsetHeight;
 }
 
-c = canvas.getContext("2d");
+var c = canvas.getContext("2d");
 var mazeW = canvas.width;
 var mazeH = canvas.height;
 var xlen = $("#xlen").children("option:selected").val();
 var ylen = $("#ylen").children("option:selected").val();
-var originialSW = Number(screen.style.width.slice(0, -2));
-c.clearRect(0, 0, mazeW, mazeH);
-c.fillStyle = '#212529';
-
 var game = new Game(
     c,
     xlen,
@@ -38,26 +40,33 @@ var game = new Game(
 game.initiateObjects();
 game.generateMaze();
 
+/////// ORIGINAL SCREEN WIDTH ALLOWS FOR REPOSITIONING OF CANVAS UPON X-CELL CHANGE ////////
+
+var originalSW = Number(screen.style.width.slice(0, -2));
+
+////// SET FUNCITONS AND LISTENERS FOR CHANGES IN PARAMETERS /////////
+
+
 function newGame() {
 
     if (game.gamestate !== GAMESTATE.SOLVING) {
 
         c.clearRect(0, 0, mazeW, mazeH);
 
-
         let newXLEN = $("#xlen").children("option:selected").val();
         let newYLEN = $("#ylen").children("option:selected").val();
         let newWidth = mazeW * newXLEN / xlen;
         let newHeight = mazeH * newYLEN / ylen;
 
-        screen.style.transform = "translateX(" + ((originialSW - newWidth) / 2).toString() + "px)";
+        screen.style.transform = "translateX(" + ((originalSW - newWidth) / 2).toString() + "px)";
 
         screen.style.width = newWidth.toString() + "px";
         screen.style.height = newHeight.toString() + "px";
+
         fitToContainer(canvas);
 
-        game.mazeW = mazeW * newXLEN / xlen;
-        game.mazeH = mazeH * newYLEN / ylen;
+        game.mazeW = canvas.width;
+        game.mazeH = canvas.height;
         game.xlen = newXLEN;
         game.ylen = newYLEN;
         game.gSpeed = $("#gSpeed").children("option:selected").val();
@@ -70,8 +79,6 @@ function newGame() {
         } else game.botVisibility = false;
 
         game.wallRemovalFactor = $("#WRF").children("option:selected").val();
-
-
         game.initiateObjects();
         game.generateMaze();
 

@@ -91,10 +91,8 @@ export default class Bot {
 
         let x = Math.floor(Math.random() * (this.maze.xlen - 3) + 1);
         let y = Math.floor(Math.random() * (this.maze.ylen - 3) + 1);
-        let chose = Math.random() >= 0.5;
 
-        if (chose) this.maze.grid[y][x].E.fill = false;
-        else this.maze.grid[y][x].S.fill = false;
+        (Math.random() >= 0.5) ? this.maze.grid[y][x].E.fill = false: this.maze.grid[y][x].S.fill = false;
     }
 
     //////////////////////////////

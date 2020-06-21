@@ -6,12 +6,14 @@ export default class Bot {
 
     constructor(game) {
 
+        this.game = game;
         this.maze = game.maze;
         this.gSpeed = game.gSpeed;
         this.sSpeed = game.sSpeed;
         this.radius = Math.min(space.W, space.H) * 0.6;
         this.pathSize = (this.radius / 2) * 0.3;
-        this.game = game;
+        this.removeDE = game.removeDE;
+
         this.DX = {
 
             "N": 0,

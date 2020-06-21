@@ -19,6 +19,8 @@ export default class Path {
         this.branches = [];
         this.branch = false;
         this.found = false;
+
+        this.iterations = 0;
     }
 
     async advance() {
@@ -199,19 +201,29 @@ export default class Path {
             if (!this.deadEnd) this.checkBranches();
         }
 
-        (this.deadEnd || this.merged) ? c.fillStyle = "red": c.fillStyle = "green";
+        if (this.deadEnd || this.merged) {
+            c.fillStyle = "red";
+            this.iterations += 1;
+        } else c.fillStyle = "green";
 
         this.route.slice(1).forEach(point => {
 
-            let x = (space.W + space.wallW) * point[0] + (0.5 * space.W);
-            let y = (space.H + space.wallH) * point[1] + (0.5 * space.H);
+            if (!this.bot.removeDE || this.iterations < this.bot.removeDE) {
 
-            c.beginPath();
-            c.arc(x, y, this.radiusReduction * this.bot.radius / 2, 0, 2 * Math.PI);
-            c.fill();
-            c.stroke();
+                let x = (space.W + space.wallW) * point[0] + (0.5 * space.W);
+                let y = (space.H + space.wallH) * point[1] + (0.5 * space.H);
+
+                c.beginPath();
+                c.arc(x, y, this.radiusReduction * this.bot.radius / 2, 0, 2 * Math.PI);
+                c.fill();
+                c.stroke();
+
+            } else if (this.iterations == this.bot.removeDE) {
+                this.bot.maze.grid[point[1]][point[0]].clearSelf();
+
+            } else {
+                return;
+            }
         })
-
-
     }
 }

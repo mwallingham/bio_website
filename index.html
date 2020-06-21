@@ -58,8 +58,8 @@
 
             <p style="font-size: 20px; text-align: justify;">
                 The maze generation occurs in two parts. Firstly, an implementation of the recursive backtracking algorithm runs, generating the raw skeleton. Following this, a function I have added runs to randomly select cells and randomly remove walls which border
-                those cells. This effectiveness of the second phase is controlled by the wall removal factor parameter. If set to zero, no additional walls will be removed, resulting in a maze with exactly one possible path between any two cells. The
-                higher this value, the more open the maze becomes and the greater the number of potential routes between two cells. Play around with the various parameters to explore how both the maze-generation and maze-solver work!
+                those cells. The effectiveness of the second phase is controlled by the wall removal factor parameter. If set to zero, no additional walls will be removed, resulting in a maze with exactly one possible path between any two cells. The higher
+                this value, the more open the maze becomes and the greater the number of potential routes between two cells. Play around with the various parameters to explore how both the maze-generation and maze-solver work!
 
 
             </p>
@@ -72,7 +72,7 @@
 
     </div>
 
-    <div class="main-container" style=" display: flex; text-align: left; width: 70%; margin-bottom: 50px;">
+    <div class="main-container" style=" display: flex; text-align: left; width: 75%; margin-bottom: 50px;">
 
         <div style="margin-bottom: 10px; font-size: 20px; width: 30%;">
 
@@ -85,6 +85,7 @@
                     <option value="12">10</option>
                     <option value="22">20</option>
                     <option value="32"selected>30</option>
+
                 </select>
                 <label>Y:</label>
                 <select style="margin-right: 24px;" id="ylen">
@@ -137,6 +138,14 @@
                     <option value="300" selected>300ms</option>
                     <option value="500">500ms</option>
                     <option value="1000">1000ms</option>
+                </select>
+                <br>
+                <label>Remove deadends:</label>
+                <select style="margin-right: 24px;" id="removeDE">
+                    <option value="0"selected>never</option>
+                    <option value="2">1 iteration</option>
+                    <option value="6">5 iterations</option>
+                    <option value="11">10 iterations</option>
                 </select>
                 <br>
                 <input type="button" value="Update" id="updateButton">

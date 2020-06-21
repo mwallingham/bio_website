@@ -25,6 +25,7 @@ var mazeW = canvas.width;
 var mazeH = canvas.height;
 var xlen = $("#xlen").children("option:selected").val();
 var ylen = $("#ylen").children("option:selected").val();
+
 var game = new Game(
     c,
     xlen,
@@ -34,7 +35,8 @@ var game = new Game(
     $("#gSpeed").children("option:selected").val(),
     $("#sSpeed").children("option:selected").val(),
     $("#bVisible").children("option:selected").val(),
-    $("#WRF").children("option:selected").val()
+    $("#WRF").children("option:selected").val(),
+    setRemoveDE()
 );
 
 game.initiateObjects();
@@ -71,6 +73,7 @@ function newGame() {
         game.ylen = newYLEN;
         game.gSpeed = $("#gSpeed").children("option:selected").val();
         game.sSpeed = $("#sSpeed").children("option:selected").val();
+        game.removeDE = setRemoveDE();
 
         if ($("#bVisible").children("option:selected").val() === "true") {
 
@@ -89,9 +92,17 @@ function update() {
 
     if (game.gamestate !== GAMESTATE.SOLVING) {
         game.sSpeed = $("#sSpeed").children("option:selected").val();
+        game.removeDE = setRemoveDE();
         game.updateBot();
-
     } else return;
+}
+
+function setRemoveDE() {
+
+    let removeDE = $("#removeDE").children("option:selected").val();
+
+    if (removeDE > 0) return removeDE;
+    else return false;
 }
 
 document.getElementById("resetButton").addEventListener('click', newGame);

@@ -20,7 +20,8 @@ class Game {
         gSpeed,
         sSpeed,
         bVisible,
-        wallRemovalFactor
+        wallRemovalFactor,
+        removeDE
     ) {
 
         this.ctx = c;
@@ -30,9 +31,11 @@ class Game {
         this.mazeH = mazeH;
         this.gSpeed = gSpeed;
         this.sSpeed = sSpeed;
-        this.gamestate = GAMESTATE.GENERATING;
-        this.wallRemovalFactor = wallRemovalFactor;
         (bVisible === "true") ? this.botVisibility = true: this.botVisibility = false;
+        this.wallRemovalFactor = wallRemovalFactor;
+        this.removeDE = removeDE;
+
+        this.gamestate = GAMESTATE.GENERATING;
     }
 
     initiateObjects() {
@@ -41,6 +44,8 @@ class Game {
         this.maze = new Maze(this);
         this.bot = new Bot(this);
         this.bot.randomPos();
+
+        console.log(this.removeDE);
     }
 
     updateBot() {

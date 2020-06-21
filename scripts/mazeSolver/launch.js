@@ -1,6 +1,8 @@
 import { GAMESTATE, Game } from './game.js'
 
 var canvas = document.getElementById("maze");
+var screen = document.getElementById("gameScreen");
+
 fitToContainer(canvas);
 var c = "";
 
@@ -17,6 +19,7 @@ var mazeW = canvas.width;
 var mazeH = canvas.height;
 var xlen = $("#xlen").children("option:selected").val();
 var ylen = $("#ylen").children("option:selected").val();
+var originialSW = Number(screen.style.width.slice(0, -2));
 c.clearRect(0, 0, mazeW, mazeH);
 c.fillStyle = '#212529';
 
@@ -41,12 +44,16 @@ function newGame() {
 
         c.clearRect(0, 0, mazeW, mazeH);
 
-        var screen = document.getElementById("gameScreen");
+
         let newXLEN = $("#xlen").children("option:selected").val();
         let newYLEN = $("#ylen").children("option:selected").val();
+        let newWidth = mazeW * newXLEN / xlen;
+        let newHeight = mazeH * newYLEN / ylen;
 
-        screen.style.width = (mazeW * newXLEN / xlen).toString() + "px";
-        screen.style.height = (mazeH * newYLEN / ylen).toString() + "px";
+        screen.style.transform = "translateX(" + ((originialSW - newWidth) / 2).toString() + "px)";
+
+        screen.style.width = newWidth.toString() + "px";
+        screen.style.height = newHeight.toString() + "px";
         fitToContainer(canvas);
 
         game.mazeW = mazeW * newXLEN / xlen;

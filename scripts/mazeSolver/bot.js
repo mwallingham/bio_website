@@ -13,7 +13,6 @@ export default class Bot {
         this.radius = Math.min(space.W, space.H) * 0.6;
         this.pathSize = (this.radius / 2) * 0.3;
         this.removeDE = game.removeDE;
-
         this.DX = {
 
             "N": 0,

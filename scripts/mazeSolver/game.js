@@ -44,8 +44,6 @@ class Game {
         this.maze = new Maze(this);
         this.bot = new Bot(this);
         this.bot.randomPos();
-
-        console.log(this.removeDE);
     }
 
     updateBot() {
@@ -58,7 +56,7 @@ class Game {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async generateMaze() {
+    async animateMazeGeneration() {
 
         this.maze.printBorder(this.ctx);
 
@@ -76,6 +74,23 @@ class Game {
             this.maze.printMaze(this.ctx);
         }
 
+        this.play();
+    }
+
+    quickGenerate() {
+
+        this.maze.printBorder(this.ctx);
+
+        while (!this.maze.generated) {
+            this.bot.generate();
+        }
+
+        for (let i = 0; i < Math.round(this.maze.xlen * this.maze.ylen * this.wallRemovalFactor); i++) {
+
+            this.bot.removeWalls();
+
+        }
+        this.maze.printMaze(this.ctx);
         this.play();
     }
 

@@ -40,7 +40,7 @@ var game = new Game(
 );
 
 game.initiateObjects();
-game.generateMaze();
+game.animateMazeGeneration();
 
 /////// ORIGINAL SCREEN WIDTH ALLOWS FOR REPOSITIONING OF CANVAS UPON X-CELL CHANGE ////////
 
@@ -83,7 +83,12 @@ function newGame() {
 
         game.wallRemovalFactor = $("#WRF").children("option:selected").val();
         game.initiateObjects();
-        game.generateMaze();
+
+        if ($("#gAnimation").children("option:selected").val() === "false") {
+
+            game.animateMazeGeneration();
+
+        } else game.quickGenerate();
 
     } else return;
 }

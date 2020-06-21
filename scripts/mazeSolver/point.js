@@ -9,8 +9,8 @@ export default class Point {
         this.clear = {
             x_start: x * (space.W + space.wallW) + space.wallW,
             y_start: y * (space.H + space.wallH) + space.wallH,
-            width: space.W * 0.8,
-            height: space.H * 0.8
+            width: space.W * 0.9,
+            height: space.H * 0.9
 
         }
 

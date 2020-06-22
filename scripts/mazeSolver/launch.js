@@ -76,8 +76,8 @@ function newGame() {
 
         let newXLEN = $("#xlen").children("option:selected").val();
         let newYLEN = $("#ylen").children("option:selected").val();
-        let newWidth = mazeW * newXLEN / xlen;
-        let newHeight = mazeH * newYLEN / ylen;
+        let newWidth = mazeW * ((newXLEN > 32) ? 32 : newXLEN) / xlen;
+        let newHeight = mazeH * ((newYLEN > 32) ? 32 : newYLEN) / ylen;
 
         screen.style.transform = "translateX(" + ((originalSW - newWidth) / 2).toString() + "px)";
 

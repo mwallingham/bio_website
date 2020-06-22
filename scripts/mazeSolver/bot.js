@@ -102,6 +102,7 @@ export default class Bot {
 
     chaseTarget(x, y, c) {
 
+        document.getElementById("pathLength").textContent = "Path Length: ";
         this.target = [x, y];
 
         if (!this.isTarget([this.position.x, this.position.y])) {
@@ -137,7 +138,10 @@ export default class Bot {
                 }
             })
 
-            this.advance(c);
+            if ($("#sAnimation").children("option:selected").val() !== "false") this.advance(c);
+            else {
+                this.quickSolve(c);
+            }
 
         } else {
             this.game.gamestate = GAMESTATE.STATIC;
@@ -192,6 +196,30 @@ export default class Bot {
             })
 
             this.advance(c);
+
+        } else this.retrieveRoute(c);
+    }
+
+    quickSolve(c) {
+
+        this.drawTarget(this.target, c);
+
+        this.paths.forEach(path => {
+
+            path.animate(c);
+
+        });
+
+        if (!this.foundTarget) {
+
+            this.paths.forEach(path => {
+
+                if (!path.deadEnd &&
+                    !path.merged &&
+                    !this.foundTarget) path.advance();
+            })
+
+            this.quickSolve(c);
 
         } else this.retrieveRoute(c);
     }
@@ -256,6 +284,8 @@ export default class Bot {
     }
 
     async followRoute(c) {
+
+        document.getElementById("pathLength").textContent = "Path Length: " + this.route.length.toString();
 
         while (this.route.length > 0) {
 

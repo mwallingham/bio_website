@@ -23,7 +23,7 @@ export default class Path {
         this.iterations = 0;
     }
 
-    async advance() {
+    advance() {
 
         if (!this.branch) {
 

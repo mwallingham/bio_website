@@ -138,10 +138,20 @@ $(document).ready(function() {
         let selected = $(this).children("option:selected").val();
         if (selected == "true") {
 
-            document.getElementById("optional").style.display = "none";
+            document.getElementById("gOptional").style.display = "none";
         } else {
 
-            document.getElementById("optional").style.display = "inline";
+            document.getElementById("gOptional").style.display = "inline";
+        }
+    });
+
+    $("#sAnimation").change(function() {
+
+        let selected = $(this).children("option:selected").val();
+        if (selected == "false") {
+            document.getElementById("sOptional").style.display = "none";
+        } else {
+            document.getElementById("sOptional").style.display = "inline";
         }
     });
 

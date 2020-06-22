@@ -100,15 +100,15 @@
             <form style="margin-bottom: 40px;">
                 <label><b>Generation:</b></label>
                 <br>
-                <label>Quick generate:</label>
+                <label>Animation:</label>
                 <select style="margin-right: 15px;" id="gAnimation">
-                    <option value="false"selected>Off</option>
-                    <option value="true">On</option>
+                    <option value="false"selected>On</option>
+                    <option value="true">Off</option>
             
                 </select>
                 <br>
 
-                <div id="optional">
+                <div id="gOptional">
                     <label>Speed:</label>
                     <select style="margin-right: 15px;" id="gSpeed">
                         <option value="0"selected>min</option>
@@ -145,25 +145,36 @@
             <form>
                 <label><b>Solving:</b></label>
                 <br>
-                <label>Speed:</label>
-                <select style="margin-right: 24px;" id="sSpeed">
-                    <option value="0">min</option>
-                    <option value="20">20ms</option>
-                    <option value="100">100ms</option>
-                    <option value="300" selected>300ms</option>
-                    <option value="500">500ms</option>
-                    <option value="1000">1000ms</option>
+                <label>Animation:</label>
+                <select style="margin-right: 24px;" id="sAnimation">
+                    <option value="true">On</option>
+                    <option value="false">Off</option>
                 </select>
                 <br>
-                <label>Remove deadends:</label>
-                <select style="margin-right: 24px;" id="removeDE">
-                    <option value="0"selected>never</option>
-                    <option value="2">1 iteration</option>
-                    <option value="6">5 iterations</option>
-                    <option value="11">10 iterations</option>
-                </select>
+                <div id="sOptional">
+                    <label>Speed:</label>
+                    <select style="margin-right: 24px;" id="sSpeed">
+                        <option value="0">min</option>
+                        <option value="20">20ms</option>
+                        <option value="100">100ms</option>
+                        <option value="300" selected>300ms</option>
+                        <option value="500">500ms</option>
+                        <option value="1000">1000ms</option>
+                    </select>
 
+                    <br>
+                    <label>Remove deadends:</label>
+                    <select style="margin-right: 24px;" id="removeDE">
+                        <option value="0"selected>never</option>
+                        <option value="2">1 iteration</option>
+                        <option value="6">5 iterations</option>
+                        <option value="11">10 iterations</option>
+                    </select>
+                </div>
             </form>
+
+            <b><p id="pathLength">Path Length: </p></b>
+
         </div>
 
         <div style="width: 60%;">

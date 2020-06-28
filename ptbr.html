@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.W. Allingham</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/bootstrap-4.5.0-dist/css/bootstrap.css">
+    <script src="scripts/jquery-3.5.1.js"></script>
+    <script src="styles/bootstrap-4.5.0-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="assets/logo.png">
+</head>
+
+
+<body>
+    <div class="main-container">
+        <div style="margin-top: 10px;">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" style="font-size: 36px; margin: 20px;">M.W. Allingham</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" style="font-size: 24px; margin-left: 24px;">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="projects.html" style="font-size: 24px; margin-left: 24px;">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="games.html" style="font-size: 24px; margin-left: 24px;">Games<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html" style="font-size: 24px; margin-left: 24px;">About</a>
+                        </li>
+                    </ul>
+
+                    <div id="contact" style="font-size: 40px;">
+                        <a href="https://www.linkedin.com/in/mark-allingham-7a18aa1ab" target="_blank" style="margin-left: 24px; margin-right: 24px;"><span class="fa fa-linkedin"></span></a>
+                        <a href="https://github.com/mwallingham" class="fa fa-github" target="_blank" style="margin-right: 24px; text-decoration: none;"></a>
+                        <a href="mailto:mwallingham@gmail.com" class="fa fa-envelope" style="margin-right: 24px;"></a>
+                    </div>
+
+                </div>
+
+            </nav>
+        </div>
+
+
+
+        <div class="main-container" style="margin-bottom: 5%;">
+            <div class="jumbotron" style=" padding: 10px; margin-top: 10px; margin-bottom: 0px; background-color: white;">
+                <div style="margin-left: auto; margin-right: auto;">
+                    <h1 class="display-4" style="font-weight: 250;">Packed Bed Thermal Reservoirs</h1>
+                    <hr class="my-4">
+                </div>
+            </div>
+
+            <section id="intro">
+
+                <div class="project-information">
+
+                    <p> Packed Bed Thermal Reservoirs (PTBRs) are a technology used for storing heat energy. In their most basic form, they have two main components; a cylindrical vessel and a solid storage medium. The solid storage medium is in particulate
+                        form and is packed into the containment vessel with gaps to allow the working fluid to flow and facilitate heat transfer. Below is an example of how PBTRs may be used for electricity storage.
+                    </p>
+
+                    <div style="display: flex; justify-content: center; margin: 5%;">
+                        <img src="assets/PTBR/PBTR_Schematic.png" alt="Schematic to show how PTBRs can be used for electrical energy storage" style="width: 60%; height: auto;">
+                    </div>
+
+                    <div style="display: flex;">
+
+                        <p style="padding-right: 5%; width: 80%;">In this example, electrical energy is used to drive turbomachinery (via an induction motor for instance) which simultaneously compresses and expands the working fluid (Argon gas here) on opposite sides of the circuit, inducing
+                            a flow. Compression work increases the internal energy of the gas, raising its temperature from ambient to the pre-selected hot reservoir inlet temperature T<sub>H</sub>. Passing through the packed bed, the temperature difference
+                            between the working fluid and the solid particles drives heat exchange between the two, raising the solid's temperature to T<sub>H</sub> and returning the working fluid to ambient temperature. As working fluid at T<sub>H</sub>                            continues to flow into the hot reservoir, a thermal front passes down through the packed bed, until the entire solid medium has reached T<sub>H</sub>. A similar process to that above occurs on the cold side of the circuit,
+                            with heat transfer occurring in the opposite direction, reducing the temperature of the solid medium in the cold reservoir to T<sub>C</sub>. When the operating temperature has been reached uniformly in both the hot and cold
+                            reservoirs (T<sub>H</sub> and T<sub>C</sub> respectively) the system is said to be fully-charged. At this point, the system can then run in reverse in order to extract heat energy, generating electricity. This system essentially
+                            acts as a heat pump when charging and a heat engine when discharging.</p>
+
+
+                        <img src="assets/PTBR/Temperature_Schematic.png" alt="Schematic to show how PTBRs can be used for electrical energy storage" style="width: 15%; height: auto;">
+
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</body>

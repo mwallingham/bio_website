@@ -26,25 +26,6 @@ var mazeH = canvas.height;
 var xlen = $("#xlen").children("option:selected").val();
 var ylen = $("#ylen").children("option:selected").val();
 
-var x = {
-    aInternal: GAMESTATE.GENERATING,
-    aListener: function(val) {},
-    set a(val) {
-        this.aInternal = val;
-        this.aListener(val);
-    },
-    get a() {
-        return this.aInternal;
-    },
-    registerListener: function(listener) {
-        this.aListener = listener;
-    }
-}
-
-x.registerListener(function(val) {
-    alert("Someone changed the value of x.a to " + val);
-});
-
 var game = new Game(
     c,
     xlen,
@@ -118,6 +99,7 @@ function update() {
         game.sSpeed = $("#sSpeed").children("option:selected").val();
         game.removeDE = setRemoveDE();
         game.updateBot();
+
     } else return;
 }
 
@@ -126,6 +108,7 @@ function setRemoveDE() {
     let removeDE = $("#removeDE").children("option:selected").val();
 
     if (removeDE > 0) return removeDE;
+
     else return false;
 }
 
@@ -148,6 +131,7 @@ $(document).ready(function() {
     $("#sAnimation").change(function() {
 
         let selected = $(this).children("option:selected").val();
+
         if (selected == "false") {
             document.getElementById("sOptional").style.display = "none";
         } else {
@@ -161,6 +145,7 @@ $(document).ready(function() {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
         while (game.gamestate !== GAMESTATE.STATIC) await sleep(300);
+
         update();
     })
 

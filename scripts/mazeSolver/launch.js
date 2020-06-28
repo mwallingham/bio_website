@@ -4,13 +4,18 @@ import { GAMESTATE, Game } from './game.js'
 
 var canvas = document.getElementById("maze");
 var screen = document.getElementById("gameScreen");
+var optionsHeight = document.getElementById("mazeOptions");
 
 screen.style.width = (window.innerWidth * 0.5).toString() + "px";
 screen.style.height = (window.innerHeight * 0.67).toString() + "px";
+optionsHeight.style.height = optionsHeight.offsetHeight.toString() + "px";
+
 
 ///// SET CANVAS DIMENSIONS & INITIALISE GAME //////
 
 fitToContainer(canvas);
+
+
 
 function fitToContainer(canvas) {
 
@@ -47,7 +52,6 @@ game.animateMazeGeneration();
 var originalSW = Number(screen.style.width.slice(0, -2));
 
 ////// SET FUNCITONS AND LISTENERS FOR CHANGES IN PARAMETERS /////////
-
 
 function newGame() {
 

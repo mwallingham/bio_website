@@ -10,20 +10,9 @@ screen.style.width = (window.innerWidth * 0.5).toString() + "px";
 screen.style.height = (window.innerHeight * 0.67).toString() + "px";
 optionsHeight.style.height = optionsHeight.offsetHeight.toString() + "px";
 
-
 ///// SET CANVAS DIMENSIONS & INITIALISE GAME //////
 
 fitToContainer(canvas);
-
-
-
-function fitToContainer(canvas) {
-
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
 
 var c = canvas.getContext("2d");
 var mazeW = canvas.width;
@@ -115,6 +104,15 @@ function setRemoveDE() {
 
     else return false;
 }
+
+function fitToContainer(canvas) {
+
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+}
+
 
 document.getElementById("regenButton").addEventListener('click', newGame);
 
